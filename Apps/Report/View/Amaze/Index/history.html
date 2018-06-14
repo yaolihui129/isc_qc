@@ -1,0 +1,30 @@
+<layout name="layout"/>
+<div class="admin-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" ><a href="__URL__/index">进行中</a></li>
+                        <li role="presentation"><a href="__URL__/owner">迭代分派</a></li>
+                        <li role="presentation" class="active"><a href="__URL__/history">历史迭代</a></li>
+                    </ul>
+                    <div class="starter-template">
+                        <ul class="list-group">
+                            <volist name='data' id='pro' empty="没有数据">
+                                <li class="list-group-item">
+                                    <a href="__APP__/<{$Think.config.PRODUCT}>/Rules/prorules/proid/<{$pro.id}>">
+                                        <span class="label label-default"><{$pro.qd|getZTUserName=###}></span>
+                                        <span class="label label-info">功能点：<{$pro.id||countFuncRangeId='tp_func_range','project',###}></span>
+                                        <small><{$pro.name}></small>
+                                        <span class="badge pull-right" title="上线日期"><{$pro.end}></span>
+                                    </a>
+                                </li>
+                            </volist>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

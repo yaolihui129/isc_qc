@@ -1,0 +1,149 @@
+<layout name="layout"/>
+<!-- content start -->
+<div class="admin-content">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            性能测试记录
+            <span class="pull-right"><a href="__URL__/pressure/id/<{$arr.api}>">返回</a></span>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="am-table am-table-striped am-table-hover table-main table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="table-type" bgcolor="#ccc">API</th>
+                        <th class="table-type" bgcolor="#ccc">线程数</th>
+                        <th class="table-type" bgcolor="#ccc">预热时间</th>
+                        <th class="table-type" bgcolor="#ccc">持续时间</th>
+                        <th class="table-type" bgcolor="#ccc">延时启动</th>
+                        <th class="table-type" bgcolor="#ccc">TPM限制</th>
+                        <th class="table-type" bgcolor="#ccc">说明</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td ><{$arr.api|getName='tp_apitest',###,'apiname'}></td>
+                        <td ><{$arr.users}></td>
+                        <td ><{$arr.in_seconds}></td>
+                        <td ><{$arr.duration}></td>
+                        <td ><{$arr.startup_delay}></td>
+                        <td ><{$arr.tpm}></td>
+                        <td ><{$arr.name}></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h3>测试结果</h3>
+                <table class="am-table am-table-striped am-table-hover table-main table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="table-type" bgcolor="#ccc">Samples</th>
+                        <th class="table-type" bgcolor="#ccc">Average</th>
+                        <th class="table-type" bgcolor="#ccc">Median</th>
+                        <th class="table-type" bgcolor="#ccc">90/95/99</th>
+                        <th class="table-type" bgcolor="#ccc">Min</th>
+                        <th class="table-type" bgcolor="#ccc">Max</th>
+                        <th class="table-type" bgcolor="#ccc">Error</th>
+                        <th class="table-type" bgcolor="#ccc">TPS</th>
+                        <th class="table-type" bgcolor="#ccc">执行者</th>
+                        <th class="table-type" bgcolor="#ccc">测试时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td >
+                            <notempty name="arr.samples">
+                                <{$arr.samples}>
+                            </notempty>
+                        </td>
+                        <td>
+                            <notempty name="arr.average">
+                                <{$arr.average}>ms
+                            </notempty>
+                        </td>
+                        <td>
+                            <notempty name="arr.median">
+                                <{$arr.median}>ms
+                            </notempty>
+                        </td>
+                        <td>
+                            <notempty name="arr.line90">
+                                <{$arr.line90}>/<{$arr.line95}>/<{$arr.line99}>ms
+                            </notempty>
+                        </td>
+                        <td>
+                            <notempty name="arr.min">
+                                <{$arr.min}>ms
+                            </notempty>
+                        </td>
+                        <td>
+                            <notempty name="arr.max">
+                                <{$arr.max}>ms
+                            </notempty>
+                        </td>
+                        <td>
+                            <notempty name="arr.error">
+                                <{$arr.error}>%
+                            </notempty>
+
+                        </td>
+                        <td><{$arr.tps}></td>
+                        <td><{$arr.tester}></td>
+                        <td><{$arr.t_time}></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>测试记录</h3>
+                <table class="am-table am-table-striped am-table-hover table-main table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="table-type" bgcolor="#ccc">Samples</th>
+                        <th class="table-type" bgcolor="#ccc">Average</th>
+                        <th class="table-type" bgcolor="#ccc">Median</th>
+                        <th class="table-type" bgcolor="#ccc">90/95/99</th>
+                        <th class="table-type" bgcolor="#ccc">Min</th>
+                        <th class="table-type" bgcolor="#ccc">Max</th>
+                        <th class="table-type" bgcolor="#ccc">Error</th>
+                        <th class="table-type" bgcolor="#ccc">TPS</th>
+                        <th class="table-type" bgcolor="#ccc">执行者</th>
+                        <th class="table-type" bgcolor="#ccc">测试时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <volist name='data' id='da' empty="没有数据">
+
+                        <switch name="da.id">
+                            <case value="$arr.test_id">
+                                <tr class="am-warning">
+                            </case>
+                            <default /><tr>
+                        </switch>
+
+                            <td title="<{$da.desc}>"><{$da.samples}></td>
+                            <td><{$da.average}>ms</td>
+                            <td><{$da.median}>ms</td>
+                            <td>
+                                <{$da.line90}>/<{$da.line95}>/<{$da.line99}>ms
+                            </td>
+                            <td><{$da.min}>ms</td>
+                            <td><{$da.max}>ms</td>
+                            <td><{$da.error}>%</td>
+                            <td><{$da.tps}></td>
+                            <td><{$da.tester}></td>
+                            <td><{$da.t_time}></td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

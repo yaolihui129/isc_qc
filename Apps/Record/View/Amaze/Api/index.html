@@ -1,0 +1,160 @@
+<layout name="layout"/>
+<div class="admin-content">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            平台：
+                            <empty name="_SESSION['branch']">
+                                全部
+                                <else/>
+                                <{$_SESSION['branch']}>
+                            </empty>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <volist name='branch' id='bra'>
+                                <li><a href="__URL__/index/branch/<{$bra}>"><{$bra}></a></li>
+                            </volist>
+                        </ul>
+                    </li>
+                    <li><a href="#">接口数：<{$count}></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <form action="__URL__/index " method="post" class="navbar-form navbar-left" role="search">
+                        <div class="form-group input-group">
+                            <input type="text" class="form-control" name="search" value="<{$search}>" placeholder="业务端、名称、作者">
+                            <input type="hidden" class="form-control" name="branch" value="<{$_SESSION['branch']}>">
+                            <span class="input-group-btn">
+                                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </form>
+                    <li><a data-toggle="modal" href="#tianjApi" ><span class="glyphicon glyphicon-plus"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <table class="am-table am-table-striped am-table-hover table-main table-bordered">
+        <thead>
+        <tr>
+            <th class="table-type" bgcolor="#ccc">平台-业务端</th>
+            <th class="table-title" bgcolor="#ccc">
+                <span class="badge">参数/场景</span>
+                <span class="badge pull-right">作者</span>接口
+            </th>
+            <th class="table-type" bgcolor="#ccc">线上</th>
+            <th class="table-type" bgcolor="#ccc">预发</th>
+            <th class="table-type" bgcolor="#ccc">测试</th>
+            <th class="table-type" bgcolor="#ccc">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name='data' id='da' empty="没有数据">
+            <tr>
+                <td><{$da.branch}>-<{$da.client}></td>
+                <td>
+                    <a href="__URL__/info/id/<{$da.id}>" >
+                        <span class="badge"><{$da.id|countApiParameter=###}>/<{$da.id|countApiScene=###}></span>
+                        <{$da.apiname}>【<{$da.way}>】<{$da.adress}>
+                        <switch name="da.pressure">
+                            <case value="1">
+                                <span class="label label-warning">性能</span>
+                            </case>
+                            <default />
+                        </switch>
+                        <span class="badge pull-right"><{$da.author}></span>
+                    </a>
+                </td>
+
+                <td><{$da.online}></td>
+                <td><{$da.release}></td>
+                <td><{$da.develop}></td>
+                <td>
+                    <a class="cke_button" href="__URL__/mod/id/<{$da.id}>"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <switch name="da.pressure">
+                        <case value="0">
+                            <a class="cke_button" href="__URL__/pressure/id/<{$da.id}>/pressure/<{$da.pressure}>"><span class="glyphicon glyphicon-cloud-upload"></span></a>
+                        </case>
+                        <case value="1">
+                            <a class="cke_button" href="__URL__/pressure/id/<{$da.id}>/pressure/<{$da.pressure}>"><span class="glyphicon glyphicon-cloud-download"></span></a>
+                        </case>
+                        <default />default
+                    </switch>
+
+                    <a class="cke_button" href="__URL__/del/id/<{$da.id}>/table/tp_apitest"
+                       onclick="return confirm('你确定要删除API：<{$da.apiname}>？')"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- 添加-模态框 -->
+<div class="modal fade " id="tianjApi" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">API接口-添加</h4>
+            </div>
+            <div class="modal-body">
+                <form action="__URL__/tianjapi" method="post" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">平台:</label>
+                        <div class="col-sm-2"><{$pingt}></div>
+                        <div class="col-sm-2">
+                            <empty name="Think.session.api.client">
+                                <input type="text" class="form-control" name="client" value="服务端"  placeholder="业务端">
+                                <else />
+                                <input type="text" class="form-control" name="client" value="<{$Think.session.api.client}>"  placeholder="业务端">
+                            </empty>
+                        </div>
+                        <label  class="col-sm-1 control-label">认证:</label>
+                        <div class="col-sm-2"><{$authority}></div>
+                        <label  class="col-sm-1 control-label">类型:</label>
+                        <div class="col-sm-2"><{$way}></div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">API:</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" name="apiName" value="" placeholder="接口名称">
+                        </div>
+                        <label  class="col-sm-1 control-label">作者:</label>
+                        <div class="col-sm-2">
+                            <empty name="Think.session.api.author">
+                                <input type="text" class="form-control" name="author" value="<{$_SESSION['realname']}>" placeholder="作者">
+                                <else />
+                                <input type="text" class="form-control" name="author" value="<{$Think.session.api.author}>"  placeholder="作者">
+                            </empty>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">地址:</label>
+                        <div class="col-sm-2"><{$agreement}></div>
+                        <div class="col-sm-4"><{$domain}></div>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" name="adress" value="" placeholder="Api地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">说明:</label>
+                        <div class="col-sm-10"><{$desc}></div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary">提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

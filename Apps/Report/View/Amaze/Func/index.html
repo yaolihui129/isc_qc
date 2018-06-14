@@ -1,0 +1,60 @@
+<layout name="layout"/>
+<div class="admin-content">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        功能地图：
+                        <span class="label label-default">平台</span>
+                        <span class="label label-primary">模块</span>
+                        <small>功能点</small>
+                        <span class="badge pull-right">最近更新的迭代</span>
+                    </h3>
+                </div>
+                <table class="table table-striped table-bordered table-hover table-condensed ">
+                        <volist name='data' id='st'>
+                            <switch name="st.result">
+                                <case value="未测试"><tr class="warning"></case>
+                                <case value="通过"><tr class="success"></case>
+                                <case value="失败"><tr class="danger"></case>
+                                <case value="阻塞"><tr class="danger"></case>
+                                <default /><tr >
+                            </switch>
+
+                                <td>
+                                   <small> 【<{$st.result}>】</small>
+                                    <span class="label label-default"><{$st.branch|getName=branch,###}></span>
+                                    <span class="label label-primary"><{$st.module|getModuleName=###}></span>
+                                    <small><{$st.func}></small>
+                                    <span class="badge pull-right" title="<{$st.moder|getZTUserName=###}>:<{$st.utime}>"><{$st.project|getName='project',###}></span>
+                                </td>
+                            </tr>
+                        </volist>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">选择平台：</h3>
+                </div>
+                <ul class="list-group">
+                    <volist name='branch' id='st'>
+                        <switch name="st">
+                            <case value="$w">
+                                <li class="list-group-item list-group-item-warning">
+                            </case>
+                            <default/>
+                            <li class="list-group-item ">
+                        </switch>
+                            <a href="__URL__/index/branch/<{$st}>"><{$st|getName=branch,###}></a>
+                            <span class="badge"><{$st|countId='tp_func','branch',###}></span>
+                        </li>
+                    </volist>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

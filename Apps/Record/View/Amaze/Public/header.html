@@ -1,0 +1,106 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>鑫泰汽车科技-产品质量后台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="bookmark" href="/favicon.ico" />
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__CSS__/Amaze/flat.css">
+    <link rel="stylesheet" href="__CSS__/Amaze/amazeui.css"/>
+    <link rel="stylesheet" href="__CSS__/Amaze/admin.css">
+
+
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+    以获得更好的体验！</p>
+<![endif]-->
+
+<header class="am-topbar admin-header">
+    <div class="am-topbar-brand"><strong>鑫泰汽车科技</strong>
+        <small>产品质量后台</small>
+    </div>
+    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+            data-am-collapse="{target: '#topbar-collapse'}">
+        <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
+    </button>
+
+    <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+        <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+            <li><a href="http://qc.zhidaoauto.com/swagger-editor" target=_blank><span class="glyphicon glyphicon-link"></span> Swagger</a></li>
+            <li >
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Index/my_must_test"  target="_blank">
+                    <span class="am-icon-user"> <{$_SESSION['realname']}></span>
+                    <span class="badge"><{$_SESSION['account']|myMustTestNum=###}></span>
+                </a>
+            </li>
+            <li>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Login/logout">
+                    <span class="am-icon-power-off"> 退出</span>
+                </a>
+            </li>
+            <li><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+        </ul>
+    </div>
+</header>
+<div class="am-cf admin-main">
+    <!-- sidebar start -->
+    <div class="admin-sidebar">
+        <ul class="am-list admin-sidebar-list">
+            <li><a href="__APP__/<{$Think.config.PRODUCT}>"><span class="am-icon-pencil-square-o"></span> 测试迭代</a></li>
+            <li>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Func/module">
+                    <span class="am-icon-pencil-square-o"> 模块-功能点</span>
+                </a>
+            </li>
+            <li>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Api">
+                    <span class="am-icon-pencil-square-o"> API测试</span>
+                </a>
+            </li>
+            <li>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Overtime">
+                    <span class="am-icon-pencil-square-o"> 加班调休</span>
+                </a>
+            </li>
+            <in name="_SESSION['id']" value="2,4,9">
+                <li>
+                    <a href="__APP__/<{$Think.config.PRODUCT}>/Appraisal">
+                        <span class="am-icon-pencil-square-o"> 绩效考核</span>
+                    </a>
+                </li>
+            </in>
+
+            <li>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Score">
+                    <span class="am-icon-pencil-square-o"> 我的积分</span>
+                </a>
+            </li>
+            <li>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Punish">
+                    <span class="am-icon-pencil-square-o"> 处罚申诉</span>
+                </a>
+            </li>
+            <!--  <li><a href="__APP__/<{$Think.config.PRODUCT}>/Test"><span class="am-icon-pencil-square-o"> 练习研究</span></a></li>-->
+        </ul>
+        <div class="am-panel am-panel-default admin-sidebar-panel">
+            <div class="am-panel-bd">
+                <p><span class="am-icon-bookmark"></span> 一言以蔽之</p>
+                <p>
+                    剑锋所指，心之所向，方能所向披靡，攻无不克！
+
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- sidebar end -->

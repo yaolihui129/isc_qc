@@ -1,0 +1,77 @@
+<layout name="layout"/>
+<div class="admin-content">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            平台：
+                            <empty name="_SESSION['branch']">
+                                全部
+                                <else/>
+                                <{$_SESSION['branch']}>
+                            </empty>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <volist name='branch' id='bra'>
+                                <li><a href="__URL__/index/branch/<{$bra}>"><{$bra}></a></li>
+                            </volist>
+                        </ul>
+                    </li>
+                    <li><a href="#">接口数：<{$count}></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <form action="__URL__/index " method="post" class="navbar-form navbar-left" role="search">
+                        <div class="form-group input-group">
+                            <input type="text" class="form-control" name="search" value="<{$search}>" placeholder="业务端、名称、作者">
+                            <input type="hidden" class="form-control" name="branch" value="<{$_SESSION['branch']}>">
+                            <span class="input-group-btn">
+                                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <table class="am-table am-table-striped am-table-hover table-main table-bordered">
+        <thead>
+            <tr>
+                <th class="table-type" bgcolor="#ccc">平台-业务端</th>
+                <th class="table-title" bgcolor="#ccc">
+                    <span class="badge">参数/场景</span>
+                    接口名称<span class="badge pull-right">作者</span>
+                </th>
+                <th class="table-type" bgcolor="#ccc">线上</th>
+                <th class="table-date" bgcolor="#ccc">上线时间</th>
+                <th class="table-type" bgcolor="#ccc">预发</th>
+                <th class="table-type" bgcolor="#ccc">测试</th>
+            </tr>
+        </thead>
+        <tbody>
+            <volist name='data' id='da' empty="没有数据">
+                <tr>
+                    <td><{$da.branch}>-<{$da.client}></td>
+                    <td>
+                        <span class="badge"><{$da.id|countApiParameter=###}>/<{$da.id|countApiScene=###}></span>
+                        <a href="__URL__/info/id/<{$da.id}>"><{$da.apiname}>【<{$da.way}>】<{$da.adress}>
+                            <switch name="da.pressure">
+                                <case value="1">
+                                    <span class="label label-warning">性能</span>
+                                </case>
+                                <default />
+                            </switch>
+                            <span class="badge pull-right"><{$da.author}></span>
+                        </a>
+                    </td>
+                    <td><{$da.online}></td>
+                    <td><{$da.otime}></td>
+                    <td><{$da.release}></td>
+                    <td><{$da.develop}></td>
+                </tr>
+            </volist>
+        </tbody>
+    </table>
+</div>
