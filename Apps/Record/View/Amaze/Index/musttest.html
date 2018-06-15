@@ -43,8 +43,8 @@
                             <span class="label label-danger">级别</span>
                             <span class="label label-default">角色</span>
                             <span class="label label-primary">节点</span>
-                            场景<span class="badge">功能数</span>
-                            <span class="label label-warning pull-right">状态</span>
+                            场景
+                            <span class="badge pull-right">功能数</span>
                         </th>
 
                         <th width=25% align="left" bgcolor="#ccc">操作</th>
@@ -62,9 +62,9 @@
                                         <span class="label label-default"><{$st.swho}></span>
                                         <span class="label label-primary"><{$st.swhen}></span>
                                         <a href="__URL__/must_test_func/id/<{$st.id}>"><small><{$st.scene}></small></a>
-                                        <span class="badge "><{$st.id|countId='tp_scene_func','scene',###}></span>
+
                                     </span>
-                                    <span class="label label-warning pull-right"><{$st.status|getSceneStatus=###}></span>
+                                    <span class="badge pull-right"><{$st.id|countId='tp_scene_func','scene',###}></span>
 
                                 </td>
                                 <td>

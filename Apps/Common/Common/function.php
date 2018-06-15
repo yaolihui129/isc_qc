@@ -831,14 +831,15 @@
     }
 
     function get_token(){
-        if($_SESSION[C(PRODUCT)]['token_expires_in']>time()){
+        if (!S(C(PRODUCT) . 'access_token')) {//缓存中没有token先获取token，并设置失效时间
             $url=C(WEBSERVER).'/index.php/Api/Oauth/token'.'?grant_type=client_credential'.'&appid='.C(XL_APPID).'&secret='.C(XL_SECRET);
             $data=httpGet($url);
+            dump($data);
             $info = json_decode(trim($data,chr(239).chr(187).chr(191)),true);
-            $_SESSION[C(PRODUCT)]['access_token']=$info['data']['access_token'];
-            $_SESSION[C(PRODUCT)]['token_expires_in']=$info['data']['access_token']+ time();
-            return  $_SESSION[C(PRODUCT)]['access_token'];
-        }else{
-            return  $_SESSION[C(PRODUCT)]['access_token'];
+            S(C(PRODUCT) . 'access_token', $info['data']['access_token'], 7200);
+            return S(C(PRODUCT) . 'access_token');
+        } else {//缓存中有token直接返回
+            return S(C(PRODUCT) . 'access_token');
         }
     }
+

@@ -368,7 +368,7 @@ class IndexController extends CommonController
 
         $where['owner']=I('user',$_SESSION['account']);
         $this->assign("owner",$where['owner']);
-        $myScene=M("tp_my_scene")->where($where)->order('sn')->select();
+        $myScene = M("tp_my_scene")->where($where)->order('sn desc')->select();
         $this->assign("myScene",$myScene);
 
         $users=['yaolihui','fanqiao','wangchenzi','menghuihui','lixm','qinzx'];
@@ -450,7 +450,7 @@ class IndexController extends CommonController
             $pro=I('project',$project[0]);
             $this->assign("pro",$pro);
             $where['project']=$pro;
-            $data=$m->where($where)->order('ctime')->select();
+            $data = $m->where($where)->order('ctime desc')->select();
             $this->assign("data",$data);
         }else{
             $this->error('还没有给你分派必测点！');
@@ -461,7 +461,7 @@ class IndexController extends CommonController
     //执行我的测试
     public function run_my_test(){
         $where=array('project'=>I('project'),'owner'=>$_SESSION['account'],'deleted'=>'0');
-        $myScene= D("tp_my_scene")->where($where)->order('project,ctime')->select();
+        $myScene = D("tp_my_scene")->where($where)->order('project,ctime desc')->select();
         $this->assign("myScene",$myScene);
         $scene=I('myScene');
         $this->assign("scene",$scene);
