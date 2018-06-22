@@ -21,7 +21,7 @@
                             <span class="badge"><{$Think.session.proid|countProTask=###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Risk/index/proid/<{$Think.session.proid}>">风险
-                            <span class="badge"><{$Think.session.proid|countRisk=###}></span></a></li>
+                            <span class="badge"><{$Think.session.proid|countId='tp_risk','project',###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Case/smoke/proid/<{$Think.session.proid}>">冒烟
                             <span class="badge"><{$Think.session.proid|countSmokeCase=###}></span></a></li>
@@ -42,7 +42,7 @@
                         </li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Bug/index/proid/<{$Think.session.proid}>">BUG
-                            <span class="badge"><{$Think.session.proid|countBug=###}></span></a></li>
+                            <span class="badge"><{$Think.session.proid|countId='bug','project',###}></span></a></li>
 
                     </ul>
 

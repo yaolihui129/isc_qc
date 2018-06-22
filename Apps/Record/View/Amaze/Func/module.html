@@ -11,14 +11,13 @@
                             <td>
                                 <a href="__URL__/index/id/<{$st.id}>">
                                     <small>【<{$st.grade}>】
-                                        <switch name="st.parent">
-                                            <case value="0"></case>
-                                            <default/>
-                                            <{$st.id|getParentModule=###}>
-                                        </switch>
-                                        <{$st.name}>
+                                        <eq name="st.parent" value="0">
+                                            <{$st.name}>
+                                            <else/>
+                                            <{$st.id|getParentModule=###}><{$st.name}>
+                                        </eq>
                                     </small>
-                                    <span class="badge pull-right"><{$st.id|countFunc=###}></span>
+                                    <span class="badge pull-right"><{$st.id|countId='tp_func','module',###}></span>
                                 </a>
                             </td>
                         </tr>
@@ -32,14 +31,14 @@
                 <div class="panel-heading"><h3 class="panel-title">平台</h3></div>
                 <ul class="list-group">
                     <volist name='data' id='vo' empty="没有数据">
-                        <switch name="vo.id">
-                            <case value="$id">
-                                <li class="list-group-item list-group-item-warning">
-                            </case>
-                            <default/>
+                        <eq name="vo.id" value="$id">
+                            <li class="list-group-item list-group-item-warning">
+                                <else/>
                             <li class="list-group-item ">
-                        </switch>
-                        <a href="__URL__/module/id/<{$vo.id}>"><{$vo.name}></a><span class="badge"><{$vo.id|countModule=###}></span>
+                        </eq>
+                        <a href="__URL__/module/id/<{$vo.id}>">
+                            <small><{$vo.name}></small>
+                        </a><span class="badge"><{$vo.id|countId='module','branch',###}></span>
                         </li>
                     </volist>
                 </ul>

@@ -78,13 +78,11 @@
                 <div class="panel-heading"><h3 class="panel-title">选择人员</h3></div>
                 <ul class="list-group">
                     <volist name='tester' id='ts' >
-                        <switch name="ts">
-                            <case value="$_SESSION['Appraisal']['tester']">
-                                <li class="list-group-item list-group-item-warning">
-                            </case>
-                            <default/>
+                        <eq name="ts" value="$_SESSION['Appraisal']['tester']">
+                            <li class="list-group-item list-group-item-warning">
+                                <else/>
                             <li class="list-group-item ">
-                        </switch>
+                        </eq>
                             <a href="__URL__/index/tester/<{$ts}>/project/<{$_SESSION['Appraisal']['project']}>">
                                 <small><{$ts|getZTUserName=###}></small>
                                 <span class="badge pull-right"><{$ts|sumScore=###,$quarter}></span>

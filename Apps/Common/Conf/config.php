@@ -14,11 +14,21 @@ return array(
     'TMPL_R_DELIM'          =>'}>',
     //数据库设置（云端）
     'DB_TYPE'               =>'mysql',
-    'DB_HOST'               =>'2lbrknae.2248.dnstoo.com',
-    'DB_NAME'               =>'xiuli',
-    'DB_USER'               =>'xiuli_f',
-    'DB_PWD'                =>'yaolihui0506',
-    'DB_PORT'               =>'5503',
+//    'DB_HOST'               =>'2lbrknae.2248.dnstoo.com',
+//    'DB_NAME'               =>'xiuli',
+//    'DB_USER'               =>'xiuli_f',
+//    'DB_PWD'                =>'yaolihui0506',
+//    'DB_PORT'               =>'5503',
+
+
+    'DB_HOST' => '127.0.0.1',
+    'DB_NAME' => 'zentao',
+    'DB_USER' => 'root',
+    'DB_PWD' => 'root',
+    'DB_PORT' => '3306',
+
+
+
     'DB_PREFIX'             =>'zt_',
     'DB_CHARSET'            => 'utf8', // 字符集
     'URL_ROUTER_ON'         => true,

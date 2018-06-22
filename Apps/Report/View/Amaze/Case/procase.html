@@ -22,7 +22,7 @@
                             <span class="badge"><{$Think.session.proid|countProTask=###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Risk/index/proid/<{$Think.session.proid}>">风险
-                            <span class="badge"><{$Think.session.proid|countRisk=###}></span></a></li>
+                            <span class="badge"><{$Think.session.proid|countId='tp_risk','project',###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Case/smoke/proid/<{$Think.session.proid}>">冒烟
                             <span class="badge"><{$Think.session.proid|countSmokeCase=###}></span></a></li>
@@ -43,12 +43,12 @@
                         </li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Bug/index/proid/<{$Think.session.proid}>">BUG
-                            <span class="badge"><{$Think.session.proid|countBug=###}></span></a></li>
+                            <span class="badge"><{$Think.session.proid|countId='bug','project',###}></span></a></li>
                     </ul>
                     <ul class="list-group">
                         <volist name='data' id='vo' empty="没有数据">
                             <li class="list-group-item">
-                                <span class="label label-default"><{$vo.branch|getBranchName=###}></span>
+                                <span class="label label-default"><{$vo.branch|getName='branch',###}></span>
                                 <span class="label label-info"><{$vo.module|getModuleName=###}></span>
                                 <{$vo.title}>【#<{$vo.version}>】
                                 <span class="badge"><{$vo.id|countStoryCase=###}></span>

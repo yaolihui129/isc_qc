@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>鑫泰汽车科技-图书&设备管理</title>
+    <title>鑫泰-接口测试平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="__CSS__/Amaze/flat.css">
     <link rel="stylesheet" href="__CSS__/Amaze/amazeui.css"/>
     <link rel="stylesheet" href="__CSS__/Amaze/admin.css">
-
-
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -23,8 +21,8 @@
 <![endif]-->
 
 <header class="am-topbar admin-header">
-    <div class="am-topbar-brand"><strong>鑫泰汽车科技</strong>
-        <small>图书&设备管理</small>
+    <div class="am-topbar-brand"><strong>鑫泰</strong>
+        <small>接口测试平台</small>
     </div>
     <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
             data-am-collapse="{target: '#topbar-collapse'}">
@@ -32,7 +30,8 @@
     </button>
     <div class="am-collapse am-topbar-collapse" id="topbar-collapse" >
         <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-            <li><a href="__APP__/Report" target=_blank><span class="glyphicon glyphicon-link"></span> QC质量平台</a></li>
+            <li><a href="__ROOT__/index.php/Report" target=_blank><span class="glyphicon glyphicon-link"></span> QC质量平台</a>
+            </li>
             <switch name="Think.session.isLogin">
                 <case value="Device">
                     <li ><a href="#"><span class="am-icon-user"> <{$_SESSION['realname']}></span></a></li>
@@ -45,7 +44,6 @@
                 <default /><li ><a href="__APP__/<{$Think.config.PRODUCT}>/Login"><span class="glyphicon glyphicon-log-in"> 登录</span></a></li>
             </switch>
             <li><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
-
         </ul>
     </div>
 
@@ -54,13 +52,13 @@
     <!-- sidebar start -->
     <div class="admin-sidebar">
         <ul class="am-list admin-sidebar-list ">
-            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Index"><span class="glyphicon glyphicon-book"> 设备&图书</span></a></li>
+            <li><a href="__APP__/Linker/Index"><span class="glyphicon glyphicon-book"> 接口列表</span></a></li>
 
 
         </ul>
         <div class="am-panel am-panel-default admin-sidebar-panel">
             <div class="am-panel-bd">
-                <p>11</p>
+                <p>接口测试平台</p>
 
 
             </div>

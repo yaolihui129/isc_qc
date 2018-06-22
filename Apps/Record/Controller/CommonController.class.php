@@ -18,6 +18,15 @@ class CommonController extends Controller
         $this->redirect('public/404');
     }
 
+    function project($map = array(), $limit = 20)
+    {
+        $map['testgp'] = 'YX';
+        $map['QD'] = array('neq', 'admin');
+        $map['deleted'] = '0';
+        $pros = M('project')->where($map)->order("status desc,end desc")->limit($limit)->select();
+        return $pros;
+    }
+
     function projectDict($limit = 20)
     {
         /*项目迭代*/

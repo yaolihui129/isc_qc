@@ -5,17 +5,17 @@
         <div class="col-md-9">
             <ul class="nav nav-pills" role="tablist">
                 <li role="presentation"  >
-                    <a href="__APP__/<{$Think.config.PRODUCT}>/Index/func/proid/<{$_SESSION['proid']}>">涉及功能点
+                    <a href="__APP__/<{$Think.config.PRODUCT}>/Func/func/proid/<{$_SESSION['proid']}>">功能点
                         <span class="badge"><{$_SESSION['proid']|countFuncRangeId='tp_func_range','project',###}></span>
                     </a>
                 </li>
                 <li role="presentation" class="active">
-                    <a href="__APP__/<{$Think.config.PRODUCT}>/Index/range/proid/<{$_SESSION['proid']}>">影响范围
+                    <a href="__APP__/<{$Think.config.PRODUCT}>/Func/range/proid/<{$_SESSION['proid']}>">影响范围
                         <span class="badge"><{$_SESSION['proid']|countId='tp_func_range','project',###}></span>
                     </a>
                 </li>
                 <li role="presentation" >
-                    <a href="__APP__/<{$Think.config.PRODUCT}>/Index/musttest/proid/<{$_SESSION['proid']}>/copy/<{$_SESSION['proid']}>">必测点
+                    <a href="__APP__/<{$Think.config.PRODUCT}>/Scene/index/proid/<{$_SESSION['proid']}>/copy/<{$_SESSION['proid']}>">必测点
                         <span class="badge"><{$_SESSION['proid']|countId='tp_scene','project',###}></span>
                     </a>
                 </li>
@@ -27,7 +27,8 @@
             </ul>
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><small><{$_SESSION['proid']|getProname=###}></small>
+                    <h3 class="panel-title">
+                        <small><{$_SESSION['proid']|getName='project',###}></small>
                         <div class="btn-group pull-right">
                             <a href="__URL__/mod_range" class=" btn btn-info btn-xs"><span class="glyphicon glyphicon-cog"> 维护</span></a>
                             <a href="__APP__/<{$Think.config.PRODUCT}>" class=" btn btn-warning btn-xs"><span class="glyphicon glyphicon-chevron-left"> 返回</span></a>
@@ -83,13 +84,11 @@
                 <div class="panel-heading"><h3 class="panel-title">迭代列表</h3></div>
                 <ul class="list-group">
                     <volist name='pros' id='pro' empty="没有数据">
-                        <switch name="pro.id">
-                            <case value="$_SESSION['proid']">
-                                <li class="list-group-item list-group-item-warning">
-                            </case>
-                            <default/>
+                        <eq name="pro.id" value="$_SESSION['proid']">
+                            <li class="list-group-item list-group-item-warning">
+                                <else/>
                             <li class="list-group-item ">
-                        </switch>
+                        </eq>
                         <a href="__URL__/range/proid/<{$pro.id}>"><small><{$pro.name}></small></a>
                         </li>
                     </volist>

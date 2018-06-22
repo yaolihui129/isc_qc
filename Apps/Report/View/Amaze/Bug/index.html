@@ -22,7 +22,7 @@
                             <span class="badge"><{$Think.session.proid|countProTask=###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Risk/index/proid/<{$Think.session.proid}>">风险
-                            <span class="badge"><{$Think.session.proid|countRisk=###}></span></a></li>
+                            <span class="badge"><{$Think.session.proid|countId='tp_risk','project',###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Case/smoke/proid/<{$Think.session.proid}>">冒烟
                             <span class="badge"><{$Think.session.proid|countSmokeCase=###}></span></a></li>
@@ -44,7 +44,7 @@
 
                         <li role="presentation" class="active"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Bug/index/proid/<{$Think.session.proid}>">BUG
-                            <span class="badge"><{$Think.session.proid|countBug=###}></span></a></li>
+                            <span class="badge"><{$Think.session.proid|countId='bug','project',###}></span></a></li>
                     </ul>
 
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -54,11 +54,14 @@
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#<{$st.id}>"
                                            aria-expanded="true" aria-controls="<{$st.id}>">
-                                            <{$st.id}><span class="label label-warning"><{$st.assignedto|getZTUserName=###}></span>
-                                            <span class="label label-default"><{$st.branch|getBranchName=###}></span>
-                                            <span class="label label-info"><{$st.module|getModuleName=###}></span>
-                                            <{$st.title}>
-                                            <span class="badge pull-right"><{$st.status|getBugStauts=###}> </span>
+                                            <small>
+                                                <{$st.id}><span class="label label-warning"><{$st.assignedto|getZTUserName=###}></span>
+                                                <span class="label label-default"><{$st.branch|getName='branch',###}></span>
+                                                <span class="label label-info"><{$st.module|getModuleName=###}></span>
+                                                <{$st.title}>
+                                                <span class="badge pull-right"><{$st.status|getBugStauts=###}> </span>
+                                            </small>
+
                                         </a>
                                     </h4>
                                 </div>
@@ -79,7 +82,9 @@
                     <div class="panel-heading"><h3 class="panel-title">提交BUG统计</h3></div>
                     <ul class="list-group">
                         <volist name='var' id='vo' empty="没有数据">
-                            <li class="list-group-item"><{$vo.openedby|getZTUserName=###}><span class="badge"><{$vo.count(id)}></span>
+                            <li class="list-group-item">
+                                <small><{$vo.openedby|getZTUserName=###}></small>
+                                <span class="badge"><{$vo.count(id)}></span>
                             </li>
                         </volist>
                     </ul>

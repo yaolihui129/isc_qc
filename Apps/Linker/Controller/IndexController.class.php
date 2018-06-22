@@ -14,7 +14,6 @@ class IndexController extends PublicController
 //        $data=chaxun('tp_device',$where,'id');
         $data = M('api')->where($where)->select();
         $this->assign('data', $data);
-        dump($data);
 
         $this->display();
     }

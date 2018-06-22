@@ -3,11 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>鑫泰汽车科技-产品质量后台</title>
+    <title>鑫泰-产品质量后台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="renderer" content="webkit">
     <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="bookmark" href="/favicon.ico" />
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
     <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -24,20 +23,18 @@
 <![endif]-->
 
 <header class="am-topbar admin-header">
-    <div class="am-topbar-brand"><strong>鑫泰汽车科技</strong>
+    <div class="am-topbar-brand"><strong>鑫泰</strong>
         <small>产品质量后台</small>
     </div>
     <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
             data-am-collapse="{target: '#topbar-collapse'}">
         <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
     </button>
-
     <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
         <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
             <li><a href="http://qc.zhidaoauto.com/swagger-editor" target=_blank><span class="glyphicon glyphicon-link"></span> Swagger</a></li>
             <li >
-                <a href="__APP__/<{$Think.config.PRODUCT}>/Index/my_must_test"  target="_blank">
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Scene/my_scene" target="_blank">
                     <span class="am-icon-user"> <{$_SESSION['realname']}></span>
                     <span class="badge"><{$_SESSION['account']|myMustTestNum=###}></span>
                 </a>
@@ -62,7 +59,7 @@
                 </a>
             </li>
             <li>
-                <a href="__APP__/<{$Think.config.PRODUCT}>/Api">
+                <a href="__ROOT__/index.php/Linker" target="_blank">
                     <span class="am-icon-pencil-square-o"> API测试</span>
                 </a>
             </li>
@@ -89,18 +86,12 @@
                     <span class="am-icon-pencil-square-o"> 处罚申诉</span>
                 </a>
             </li>
-            <!--  <li><a href="__APP__/<{$Think.config.PRODUCT}>/Test"><span class="am-icon-pencil-square-o"> 练习研究</span></a></li>-->
         </ul>
         <div class="am-panel am-panel-default admin-sidebar-panel">
             <div class="am-panel-bd">
                 <p><span class="am-icon-bookmark"></span> 一言以蔽之</p>
-                <p>
-                    剑锋所指，心之所向，方能所向披靡，攻无不克！
-
-                </p>
+                <p>剑锋所指，心之所向，方能所向披靡，攻无不克！</p>
             </div>
         </div>
-
-
     </div>
     <!-- sidebar end -->

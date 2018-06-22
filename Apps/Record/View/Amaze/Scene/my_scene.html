@@ -8,7 +8,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                           <small><{$pro|getProname=###}></small>
+                            <small><{$pro|getName='project',###}></small>
                             <span class="badge"><{$pro|countMyProjectScene=###}></span>
                         </h3>
                     </div>
@@ -33,13 +33,14 @@
                                 <tr class="info">
                             </switch>
                             <td>
-                                <a href="__URL__/run_my_test/myScene/<{$st.id}>/project/<{$st.project}>"><{$st.scene|getSceneInfo=###}></a>
+                                <a href="__URL__/run_my_scene/myScene/<{$st.id}>/project/<{$st.project}>"><{$st.scene|getSceneInfo=###}></a>
                                 <switch name="st.result">
+                                    <case value="0"><span class="label label-info pull-right"></case>
                                     <case value="1"><span class="label label-success pull-right"></case>
                                     <case value="2"><span class="label label-danger pull-right"></case>
                                     <case value="3"><span class="label label-warning pull-right"></case>
                                     <case value="4"><span class="label label-default pull-right"></case>
-                                    <default/><span class="label label-info pull-right">
+                                    <default/>
                                 </switch>
                                 <{$st.result|getSceneResult=###}>
                                 </span>
@@ -61,7 +62,9 @@
                                 <default/>
                                 <li class="list-group-item ">
                             </switch>
-                            <a href="__URL__/my_must_test/project/<{$p}>"><small><{$p|getProname=###}></small></a>
+                            <a href="__URL__/my_scene/project/<{$p}>">
+                                <small><{$p|getName='project',###}></small>
+                            </a>
                             <span class="badge"><{$p|countMyProjectScene=###}></span>
                             </li>
                         </volist>

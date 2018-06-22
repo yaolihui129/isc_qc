@@ -5,34 +5,6 @@
         return $data['v'];
     }
 
-    //根据$module获取功能数CoundId
-    function countFunc($module){
-        $where=array("module"=>$module,'deleted'=>'0');
-        $count=M("tp_func")->where($where)->count();
-        return $count;
-    }
-    function countModule($branch){
-        $where=array("branch"=>$branch,'deleted'=>'0');
-        $count=M("module")->where($where)->count();
-        return $count;
-    }
-    function getBuildVersion($branchId){
-        $where=array("branch"=>$branchId);
-        $arr=M('build')->where($where)->order('id desc')->select();
-        if($arr){
-            return $arr[0]['name'];
-        }else {
-            return '暂无版本';
-        }
-    }
-
-    //根据id获取产品名
-    function getProd($id){
-        $data=M('product')->find($id);
-        return $data['name'];
-    }
-
-
     //根据pid获取分类数
     function countCate($pidCateId){
         $where=array('pidCateId'=>$pidCateId);
@@ -360,7 +332,7 @@
         return getShortUrl($token,$long_url);
     }
 
-    //获取临时二维码
+//获取永久二维码
     function getForeverQrCode($token,$scene_id){
         $url='https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token='.$token;
         $postArr =array(                                                                //1.组装数组
@@ -460,25 +432,6 @@
         return  $weekarray[$shuchu];
     }
 
-    //根据id获取功能名getName
-    function getFunc($id){
-        $data=M('tp_func')->find($id);
-        return $data['func'];
-    }
-
-    //根据funcid获取功能结果getName
-    function getFResult($id){
-        $data=M('tp_func')->find($id);
-        return $data['result'];
-    }
-
-    //根据proid获取风险数CoundId
-    function countRisk($proid){
-        $where=array("proid"=>$proid);
-        $count=M("tp_risk")->where($where)->count();
-        return $count;
-    }
-
     // 根据id获取项目信息
     function getPro($proid){
         $data=M('project')->find($proid);
@@ -489,31 +442,9 @@
         }
 
     }
-    // 根据id获取项目信息getName
-    function getProname($proid){
-        $data=M('project')->find($proid);
-        return $data['name'];
-    }
 
-    //根据id获取项目编号getName
-    function getProNo($proid){
-        $data=M('project')->find($proid);
-        return $data['code'];
-    }
 
-    //根据prodid 获取机构名称getName
-    function getProduct($prodid){
-        $data=M('product')->find($prodid);
-        return $data['name'];
-    }
-//CoundID
-    function getProProdunct($pro){
-        $where=array('project'=>$pro);
-        $data=M('projectproduct')->where($where)->find();
-        return $data['product'];
-    }
-
-    function countPRules($proid){
+function countPRules($proid){
         $where=array("zt_projectstory.project"=>$proid, 'zt_story.deleted'=>'0');
         $count=M('story')->where($where)->join('zt_projectstory ON zt_projectstory.story =zt_story.id')->count();
         return $count;
@@ -550,35 +481,9 @@
         }
         return $str;
     }
-    //getName
-    function getBranchName($branchid){
-        $data=M('branch')->find($branchid);
-        return $data['name'];
-    }
 
-    function getApiStatus($value){
-        if($value=='1'){
-            return '规划中';
-        }elseif ($value=='2'){
-            return '写用例';
-        }elseif ($value=='3'){
-            return '已提测';
-        }elseif ($value=='4'){
-            return '测试中';
-        }elseif ($value=='5'){
-            return '已完成';
-        }elseif ($value=='6'){
-            return '已上线（未测试）';
-        }elseif ($value=='7'){
-            return '已上线';
-        }elseif ($value=='8'){
-            return '已作废';
-        }else{
-            return ;
-        }
-    }
 
-    function getProst($value){
+function getProst($value){
         if($value=='doing'){
             return '进行中';
         }elseif ($value=='done'){
@@ -598,48 +503,6 @@
         }
     }
 
-    function getApiSceneStatus($value){
-        if($value==0){
-            return '0-规划';
-        }elseif ($value==1){
-            return '1-冒烟';
-        }elseif ($value==2){
-            return '2-脚本完成';
-        }elseif ($value==3){
-            return '3-测试通过';
-        }elseif ($value==4){
-            return '4-测试失败';
-        }elseif ($value==5){
-            return '5-场景错误';
-        }elseif ($value==6){
-            return '6-版本更新（待确认）';
-        }else{
-            return ;
-        }
-    }
-
-    function getApiVersionStatus($value){
-        //1-规划，2-提测，3-驳回，4-通过，5-预发，6-上线
-        if($value==1){
-            return '1-规划';
-        }elseif ($value==2){
-            return '2-提测';
-        }elseif ($value==3){
-            return '3-驳回';
-        }elseif ($value==4){
-            return '4-通过';
-        }elseif ($value==5){
-            return '5-预发';
-        }elseif ($value==6){
-            return '6-上线';
-        }elseif ($value==7){
-            return '7-取消';
-        }else{
-            return ;
-    }
-
-
-}
     //获取BUG状态
     function getBugStauts($value){
         if($value=='active'){
@@ -654,19 +517,6 @@
             return ;
         }
     }
-    //获取API参数数量-可用countId代替
-    function countApiParameter($apiId){
-        $where=array('api'=>$apiId,'deleted'=>'0');
-        $count=M('tp_api_parameter')->where($where)->count();
-        return $count;
-    }
-
-    //获取API场景数量可用countId代替
-    function countApiScene($apiId){
-        $where=array('api'=>$apiId,'deleted'=>'0');
-        $count=M('tp_api_scene')->where($where)->count();
-        return $count;
-    }
 
     function countId($table,$name,$value){
         $where=array($name=>$value,"deleted"=>'0');
@@ -678,19 +528,8 @@
         $data=M($table)->find($id);
         return $data[$name];
     }
-    //获取API参数数量-可用countId代替
-    function countBug($proid){
-        $where=array("project"=>$proid,"deleted"=>'0');
-        $count=M("bug")->where($where)->count();
-        return $count;
-    }
-    //根据$proid获取用例数-可用countId代替
-    function countCase($proid){
-        $where=array("project"=>$proid);
-        $count=M("case")->where($where)->count();
-        return $count;
-    }
-    //状态选择控件,@param $name 控件name;@param $value 选中值
+
+//状态选择控件,@param $name 控件name;@param $value 选中值
     function formselect($value="正常",$name="state",$type="state") {
         $where=array("type"=>$type,"state"=>"正常");
         $cats = M('tp_dict')->where($where)->order('k')->select();
@@ -791,7 +630,6 @@
         // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
         if (isset ($_SERVER['HTTP_X_WAP_PROFILE']))
             return true;
-
         //此条摘自TPM智能切换模板引擎，适合TPM开发
         if(isset ($_SERVER['HTTP_CLIENT']) &&'PhoneClient'==$_SERVER['HTTP_CLIENT'])
             return true;

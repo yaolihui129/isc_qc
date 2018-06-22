@@ -39,7 +39,7 @@
                                                               class="input40"/></td>
                                     <td><small><{$st.id}>【<{$st.result}>】<{$st.func}></small>
                                         <a href="#">
-                                            <span class="badge pull-right"><{$st.project|getProNo=###}></span>
+                                            <span class="badge pull-right"><{$st.project|getName='project',###,'code'}></span>
                                         </a>
                                     </td>
                                     <td>
@@ -68,23 +68,22 @@
                 <div class="panel-heading"><h3 class="panel-title">【层级】模块</h3></div>
                 <ul class="list-group">
                     <volist name='data' id='vo' empty="没有数据">
-                        <switch name="vo.id">
-                            <case value="$arr.id">
-                                <li class="list-group-item list-group-item-warning">
-                            </case>
-                            <default/>
+                        <eq name="vo.id" value="$arr['id']">
+                            <li class="list-group-item list-group-item-warning">
+                                <else/>
                             <li class="list-group-item ">
-                        </switch>
+                        </eq>
                         <a href="__URL__/index/id/<{$vo.id}>">
-                            <small>【<{$vo.grade}>】
-                            <switch name="vo.parent">
-                                <case value="0"></case>
-                                <default/>
-                                <{$vo.id|getParentModule=###}>
-                            </switch>
-                                <{$vo.name}></small>
+                            <small>
+                                【<{$vo.grade}>】
+                                <eq name="vo.parent" value="0">
+                                    <{$vo.name}>
+                                    <else/>
+                                    <{$vo.id|getParentModule=###}><{$vo.name}>
+                                </eq>
+                            </small>
                         </a>
-                        <span class="badge"><{$vo.id|countFunc=###}></span>
+                        <span class="badge"><{$vo.id|countId='tp_func','module',###}></span>
                         </li>
                     </volist>
                 </ul>

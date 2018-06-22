@@ -20,7 +20,7 @@
                             <span class="badge"><{$Think.session.proid|countProTask=###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Risk/index/proid/<{$Think.session.proid}>">风险
-                            <span class="badge"><{$Think.session.proid|countRisk=###}></span></a></li>
+                            <span class="badge"><{$Think.session.proid|countId='tp_risk','project',###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Case/smoke/proid/<{$Think.session.proid}>">冒烟
                             <span class="badge"><{$Think.session.proid|countSmokeCase=###}></span></a></li>
@@ -41,7 +41,7 @@
                         </li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Bug/index/proid/<{$Think.session.proid}>">BUG
-                            <span class="badge"><{$Think.session.proid|countBug=###}></span></a></li>
+                            <span class="badge"><{$Think.session.proid|countId='bug','project',###}></span></a></li>
                     </ul>
 
                     <div class="starter-template">
@@ -59,7 +59,7 @@
                             <volist name='data' id='st' empty="没有数据">
                                 <tr>
                                     <td><{$st.id}></td>
-                                    <td><{$st.branch|getBranchName=###}></td>
+                                    <td><{$st.branch|getName='branch',###}></td>
                                     <td><{$st.module|getModuleName=###}></td>
                                     <td><a href="http://qc.zhidaoauto.com/zentao/story-view-<{$st.id}>.html" target="_blank"><{$st.title}>
                                         <span class="badge pull-right"><{$st.id|countTask=###}></span>

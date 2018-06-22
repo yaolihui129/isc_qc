@@ -59,18 +59,16 @@
                 </div>
                 <ul class="list-group">
                     <volist name='data' id='vo' empty="没有数据">
-                        <switch name="vo.id">
-                            <case value="$func.id">
-                                <li class="list-group-item list-group-item-warning">
-                            </case>
-                            <default/>
+                        <eq name="vo.id" value="$func['id']">
+                            <li class="list-group-item list-group-item-warning">
+                                <else/>
                             <li class="list-group-item ">
-                        </switch>
-                                <a href="__URL__/mod/id/<{$vo.id}>/module/<{$func.module}>">
-                                    <small><{$vo.id}>【<{$vo.result}>】<{$vo.func}></small>
-                                    <span class="badge pull-right"><{$vo.project|getProNo=###}></span>
-                                </a>
-                            </li>
+                        </eq>
+                        <a href="__URL__/mod/id/<{$vo.id}>/module/<{$func.module}>">
+                            <small><{$vo.id}>【<{$vo.result}>】<{$vo.func}></small>
+                            <span class="badge pull-right"><{$vo.project|getName='project',###,'code'}></span>
+                        </a>
+                        </li>
                     </volist>
                 </ul>
             </div>
