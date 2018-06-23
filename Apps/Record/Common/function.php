@@ -5,21 +5,6 @@
         $count=M($table)->where($where)->count();
         return $count;
     }
-    //获取必测点场景状态
-    function getSceneStatus($value)
-    { //1-新建，2-规划，3-完成，4-变更
-        if($value==1){
-            return '1-新建';
-        }elseif ($value==2){
-            return '2-规划';
-        }elseif ($value==3){
-            return '3-完成';
-        }elseif ($value==4){
-            return '4-变更';
-        }else{
-            return ;
-        }
-    }
 
     //获取我的必测点数量
     function myMustTestNum($user){
@@ -59,11 +44,10 @@
     function getMySceneInfo($id){
         $arr=M('tp_my_scene')->find($id);
         $str='<span class="label label-danger">'.getName('tp_scene',$arr['scene'],'level').'</span>'
-            .'<span class="label label-Amaze">'.getName('tp_scene',$arr['scene'],'swho').'</span>'
+            . '<span class="label label-default">' . getName('tp_scene', $arr['scene'], 'swho') . '</span>'
             .'<span class="label label-primary">'.getName('tp_scene',$arr['scene'],'swhen').'</span>'
             .'<small>'.getName('tp_scene',$arr['scene'],'scene').'</small>'
-            .'<span class="badge ">'.countId('tp_my_scene_func','myscene',$id).'</span>'
-        ;
+            . '<span class="badge">' . countId('tp_my_scene_func', 'myscene', $id) . '</span>';
         return $str;
     }
 
@@ -71,10 +55,10 @@
     function getSceneInfo($id){
         $arr=M('tp_scene')->find($id);
         $str='<span class="label label-danger">'.$arr['level'].'</span>'
-            .'<span class="label label-Amaze">'.$arr['swho'].'</span>'
+            . '<span class="label label-default">' . $arr['swho'] . '</span>'
             .'<span class="label label-primary">'.$arr['swhen'].'</span>'
             .'<small>'.$arr['scene'].'</small>'
-            .'<span class="badge ">'.countId('tp_scene_func','scene',$id).'</span>'
+            . '<span class="badge pull-right">' . countId('tp_scene_func', 'scene', $id) . '</span>'
         ;
         return $str;
     }
@@ -84,15 +68,15 @@
     function getSceneResult($value)
     {
         if($value==1){
-            return '1-通过';
+            return '通过';
         }elseif ($value==2){
-            return '2-失败';
+            return '失败';
         }elseif ($value==3){
-            return '3-阻塞';
+            return '阻塞';
         }elseif ($value==4){
-            return '4-错误';
+            return '错误';
         }elseif ($value==0){
-            return '0-未测';
+            return '未测';
         }else{
             return ;
         }
@@ -100,7 +84,7 @@
     //获取功能点信息
     function getFuncInfo($funcId){
         $data=M('tp_func')->find($funcId);
-        $str='<span class="label label-Amaze">'.getName('branch',$data['branch']).'</span>'
+        $str = '<span class="label label-default">' . getName('branch', $data['branch']) . '</span>'
             .'<span class="label label-primary">'.getModuleName($data['module']).'</span>'
             .'<small>'.$data['func'].'</small>';
         return $str;

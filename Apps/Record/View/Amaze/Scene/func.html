@@ -44,7 +44,7 @@
                                     <td>
                                         <span class="label label-default"><{$st.branch|getName=branch,###}></span>
                                         <span class="label label-primary"><{$st.module|getModuleName=###}></span>
-                                        <{$st.func|getName=tp_func,###,func}>
+                                        <small><{$st.func|getName=tp_func,###,func}></small>
                                     </td>
                                     <td>
                                         <div class="btn-group">
@@ -72,20 +72,18 @@
                 </div>
                 <ul class="list-group">
                     <volist name='data' id='pro' empty="没有数据">
-                        <switch name="pro.id">
-                            <case value="$arr['id']">
-                                <li class="list-group-item list-group-item-warning">
-                            </case>
-                            <default/>
+                        <eq name="pro.id" value="$arr['id']">
+                            <li class="list-group-item list-group-item-warning">
+                                <else/>
                             <li class="list-group-item ">
-                        </switch>
+                        </eq>
                         <a href="__URL__/func/id/<{$pro.id}>">
                                 <span title="<{$pro.flow}>">
                                     <span class="label label-danger"><{$pro.level}></span>
                                     <span class="label label-default"><{$pro.swho}></span>
                                     <span class="label label-primary"><{$pro.swhen}></span>
                                     <small><{$pro.scene}></small>
-                                    <span class="label label-warning pull-right"><{$pro.status}></span>
+                                    <span class="badge pull-right"><{$pro.id|countId='tp_scene_func','scene',###}></span>
                                 </span>
                             </a>
                         </li>

@@ -19,31 +19,34 @@
                                 <span class="label label-danger">级别</span>
                                 <span class="label label-default">角色</span>
                                 <span class="label label-primary">节点</span>
-                                场景<span class="badge">功能数</span>
-                                <span class="label label-warning pull-right">状态</span>
+                                场景
+                                <span class="badge pull-right">功能数</span>
+
                             </th>
                         </tr>
                         <volist name='data' id='st' >
                             <switch name="st.result">
+                                <case value="0">
+                                    <tr class="info">
+                                </case>
                                 <case value="1"><tr class="success"></case>
                                 <case value="2"><tr class="danger"></case>
                                 <case value="3"><tr class="warning"></case>
                                 <case value="4"><tr class="default"></case>
-                                <default/>
-                                <tr class="info">
                             </switch>
                             <td>
-                                <a href="__URL__/run_my_scene/myScene/<{$st.id}>/project/<{$st.project}>"><{$st.scene|getSceneInfo=###}></a>
                                 <switch name="st.result">
-                                    <case value="0"><span class="label label-info pull-right"></case>
-                                    <case value="1"><span class="label label-success pull-right"></case>
-                                    <case value="2"><span class="label label-danger pull-right"></case>
-                                    <case value="3"><span class="label label-warning pull-right"></case>
-                                    <case value="4"><span class="label label-default pull-right"></case>
-                                    <default/>
+                                    <case value="0"><img src="__IMG__/consulting.png" class="img-responsive pull-left">
+                                    </case>
+                                    <case value="1"><img src="__IMG__/check.png" class="img-responsive pull-left">
+                                    </case>
+                                    <case value="2"><img src="__IMG__/featured.png" class="img-responsive pull-left">
+                                    </case>
+                                    <case value="3"><img src="__IMG__/busy.png" class="img-responsive pull-left"></case>
+                                    <case value="4"><img src="__IMG__/consulting.png" class="img-responsive pull-left">
+                                    </case>
                                 </switch>
-                                <{$st.result|getSceneResult=###}>
-                                </span>
+                                <a href="__URL__/run_my_scene/myScene/<{$st.id}>/project/<{$st.project}>"><{$st.scene|getSceneInfo=###}></a>
                             </td>
                             </tr>
                         </volist>
@@ -55,13 +58,11 @@
                     <div class="panel-heading"><h3 class="panel-title"><small>选择迭代</small></h3></div>
                     <ul class="list-group">
                         <volist name='project' id='p'>
-                            <switch name="p">
-                                <case value="$pro">
-                                    <li class="list-group-item list-group-item-warning">
-                                </case>
-                                <default/>
+                            <eq name="p" value="$pro">
+                                <li class="list-group-item list-group-item-warning">
+                                    <else/>
                                 <li class="list-group-item ">
-                            </switch>
+                            </eq>
                             <a href="__URL__/my_scene/project/<{$p}>">
                                 <small><{$p|getName='project',###}></small>
                             </a>
