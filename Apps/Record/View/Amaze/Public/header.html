@@ -31,6 +31,12 @@
         <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
     </button>
     <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+        <ul class="nav navbar-nav">
+            <li class="active hide" id="hide" onclick="hide()"><a href="#">隐藏菜单 <span
+                    class="sr-only">(current)</span></a></li>
+            <li class="active" id="show" onclick="show()"><a href="#">显示菜单 <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
         <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
             <li><a href="http://qc.zhidaoauto.com/swagger-editor" target=_blank><span class="glyphicon glyphicon-link"></span> Swagger</a></li>
             <li><a href="http://tool.eolinker.com/#/" target=_blank><span class="glyphicon glyphicon-link"></span> 常用小工具</a>
@@ -54,7 +60,7 @@
 </header>
 <div class="am-cf admin-main">
     <!-- sidebar start -->
-    <div class="admin-sidebar">
+    <div class="admin-sidebar hide">
         <ul class="am-list admin-sidebar-list">
             <li><a href="__APP__/<{$Think.config.PRODUCT}>"><span class="am-icon-pencil-square-o"></span> 测试迭代</a></li>
             <li>

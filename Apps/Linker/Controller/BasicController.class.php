@@ -8,7 +8,6 @@ class BasicController extends Controller
 {
     public function _initialize()
     {
-
         if(!$_SESSION['isLogin']== C(PRODUCT)){// 初始化的时候检查用户权限
             if($_SESSION['realname'] == ''){
                 $this->redirect('Device/Login/index');
@@ -37,7 +36,7 @@ class BasicController extends Controller
     }
 
 
-    public function insert()
+    function insert()
     {
         $m = D(I('table'));
         if (IS_GET) {
@@ -76,7 +75,7 @@ class BasicController extends Controller
     }
 
     //修改
-    public function update()
+    function update()
     {
         if (IS_GET) {
             $_GET['moder'] = $_SESSION['account'];
@@ -103,34 +102,44 @@ class BasicController extends Controller
         }
     }
 
-    public function dataUpdate($table,$savePath,$data,$img='img',$url=''){
-        $_POST=$data;
-        $_POST['moder']=$_SESSION['realname'];
-        //处理上传图片
-        $upload = new \Think\Upload();// 实例化上传类
-        $upload->maxSize  =     7145728 ;// 设置附件上传大小
-        $upload->exts     =     array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-        $upload->rootPath =  './Upload';// 设置附件上传目录
-        $upload->savePath = '/'.$savePath.'/'; // 设置附件上传目录
-        $info  =   $upload->upload();
-        if(!$info) {// 上传错误提示错误信息或没有上传图片
-            if (D($table)->save($_POST)){
-                $this->success("修改成功！",U($_POST['url']));
-            }else{
-                $this->error("失败");
-            }
-        }else {
-            $_POST[$img]=$info[$img]['savepath'].$info[$img]['savename'];
-            if (D($table)->save($_POST)){
-                $image = new \Think\Image();
-                $image->open('./Upload/'.$info[$img]['savepath'].$info[$img]['savename']);
-                $image->thumb(600, 400)->save('./Upload/'.$info[$img]['savepath'].$info[$img]['savename']);
-                $this->success("修改成功！",U($_POST['url']));
-            }else{
-                $this->error("修改失败！");
-            }
+    //逻辑删除
+    public function del()
+    {
+        $_POST[I('name')] = I('id');
+        $_POST['deleted'] = 1;
+        if (D(I('table'))->save($_POST)) {
+            $this->success("删除成功！");
+        } else {
+            $this->error("删除失败！");
         }
+    }
 
+    //物理删除
+    public function realdel()
+    {
+        $count = D(I('table'))->delete(I('id'));
+        if ($count > 0) {
+            $this->success('成功');
+        } else {
+            $this->error('失败');
+        }
+    }
+
+    function projectList($where = array())
+    {
+        $where['projectName'] = array('neq', '示例接口');
+        $data = M('project')->where($where)->select();
+        return $data;
+    }
+
+    function projectID()
+    {
+        $project = $this->projectList();
+        $pro = '';
+        foreach ($project as $p) {
+            $pro[] = $p['projectid'];
+        }
+        return $pro;
     }
 
 

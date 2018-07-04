@@ -1,6 +1,6 @@
 <layout name="layout"/>
 <!-- content start -->
-<div class="admin-content container">
+<div class="admin-content container" style="min-height: 500px">
 
     <ul class="nav nav-pills" role="tablist">
         <li role="presentation" class="active">
@@ -15,6 +15,11 @@
         </li>
         <li role="presentation" >
             <a href="__URL__/history">历史迭代</a>
+        </li>
+        <li role="presentation">
+            <a href="__URL__/assigne">待分派迭代
+                <span class="badge"><{$Think.session.account|countDraw=###}></span>
+            </a>
         </li>
     </ul>
 

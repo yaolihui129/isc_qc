@@ -3,16 +3,25 @@ function taskInfo($task)
 {
     $where = array('deleted' => '0');
     $arr = M('task')->where($where)->find($task);
-    $str = "【" . getProNo($arr['project']) . '】' . getProname($arr['project']) . '【' . taskLastUpdateDate($arr['id']) . '】'
-        . '<span class="label label-Amaze">' . getProst($arr['status']) . "</span>"
+    $str = "【" . getName('project', $arr['project'], 'code') . '】' . getName('project', $arr['project']) . '【' . taskLastUpdateDate($arr['id']) . '】'
+        . '<span class="label label-default">' . getProst($arr['status']) . "</span>"
         . '<br><br>' . $arr['id'] . ':' . $arr['name'];
     return $str;
 }
 
-function countFuncRangeId($table,$name,$value){
-    $where=array($name=>$value,"deleted"=>'0','type'=>'1');
-    $count=M($table)->where($where)->count();
+function countFuncRangeId($table, $name, $value)
+{
+    $where = array($name => $value, "deleted" => '0', 'type' => '1');
+    $count = M($table)->where($where)->count();
     return $count;
+}
+
+function getTaskProject($task)
+{
+    $arr = M('task')->find($task);
+    $project = getName('project', $arr['project']);
+    return $project;
+
 }
 
 function countStoryCase($storyid)
@@ -90,6 +99,7 @@ function getCaseStep($caseid, $version = 1)
 {
     $where = array('case' => $caseid, 'version' => $version);
     $data = M('casestep')->where($where)->select();
+    $str = '';
     $str .= '<ul>';
     foreach ($data as $k => $ar) {
         $str .= '<li>';
@@ -110,6 +120,7 @@ function getStoryCase($storyid)
 {
     $where = array('story' => $storyid, 'deleted' => '0');
     $data = M('case')->where($where)->select();
+    $str = '';
     $str .= '<ul class="list-group">';
     foreach ($data as $ar) {
         $str .= '<li class="list-group-item">CaesID:';
@@ -123,36 +134,11 @@ function getStoryCase($storyid)
     return $str;
 }
 
-
-function countProBuild($proid)
-{
-    $where['project'] = $proid;
-    $where['deleted'] = '0';
-    $data = M("build")->where($where)->count();
-    return $data;
-
-}
-
-function getProBuild($branch)
-{
-    $where = array('branch' => $branch, 'project' => $_SESSION['proid'], 'deleted' => '0');
-    $data = M('build')->where($where)->select();
-    $str .= '<ul class="list-group">';
-    foreach ($data as $ar) {
-        $str .= '<li class="list-group-item">';
-        $str .= $ar['id'] . '-' . $ar['name'];
-        $str .= '<span class="badge">' . getZTUserName($ar['builder']) . '</span>';
-        $str .= '</li>';
-    }
-    $str .= '</ul>';
-    return $str;
-}
-
-
 function getStorySmokeCase($storyid)
 {
     $where = array('story' => $storyid, 'pri' => 1, 'deleted' => '0');
     $data = M('case')->where($where)->select();
+    $str = '';
     $str .= '<ul class="list-group">';
     foreach ($data as $ar) {
         $str .= '<li class="list-group-item">CaesID:';
@@ -283,6 +269,7 @@ function taskestimate($task)
     $where['task'] = $task;
     $where['consumed'] = array('gt', 0);;
     $arr = $m->where($where)->order('date desc')->select();
+    $str = '';
     foreach ($arr as $ar) {
         $str .= '<li class="list-group-item">';
         $str .= getZTUserName($ar['account']) . "&nbsp;";
@@ -324,12 +311,12 @@ function sunUserProject($projet, $user)
 
 }
 
-function sunDateSorty($story, $date)
+function sunDateSorty($story, $date, $name)
 {
-    $where['zt_task.id'] = $story;
-    $where['zt_taskestimate.date'] = $date;
-    $join = 'zt_taskestimate ON zt_taskestimate.task=zt_task.id';
-    $data = M('task')->join($join)->where($where)->Sum('zt_taskestimate.consumed');
+    $where['task'] = $story;
+    $where['date'] = $date;
+    $where['account'] = $name;
+    $data = M('taskestimate')->where($where)->Sum("consumed");
     $var = round($data, 2);
     if ($var) {
         return $var;
@@ -361,6 +348,7 @@ function getTasktime($id)
     $m = D('taskestimate');
     $where = array("task" => $id);
     $arr = $m->where($where)->select();
+    $str = '';
     foreach ($arr as $ar) {
         $str .= '<li class="list-group-item">'
             . $ar['date'] . "&nbsp;剩余："
@@ -390,6 +378,7 @@ function getTaskdoing($user)
     $arr = $m->where($where)
         ->join('inner JOIN zt_taskestimate ON zt_task.id =zt_taskestimate.task')
         ->select();
+    $str = '';
 
     foreach ($arr as $ar) {
         $str .= '<li class="list-group-item"><span class="badge pull-left">'
@@ -420,6 +409,7 @@ function getTaskfinish($user)
         ->join('inner JOIN zt_taskestimate ON zt_task.id =zt_taskestimate.task')
         ->order('zt_task.project,zt_task.story,zt_taskestimate.date')
         ->select();
+    $str = '';
 
     foreach ($arr as $ar) {
         $str .= '<li class="list-group-item"><span class="badge pull-left">'
@@ -437,36 +427,39 @@ function getTaskfinish($user)
 }
 
 
-function getJiabHour($user){
-    $where = array('userid' => $user,'type'=>'1');
-    $Num= M('tp_overtime')->where($where)->sum('hourlong');
-    if($Num){
+function getJiabHour($user)
+{
+    $where = array('userid' => $user, 'type' => '1');
+    $Num = M('tp_overtime')->where($where)->sum('hourlong');
+    if ($Num) {
         return $Num;
-    }else{
+    } else {
         return 0;
     }
 }
 
-function getTiaoxHour($user){
-    $where = array('userid' => $user,'type'=>'2');
-    $Num= M('tp_overtime')->where($where)->sum('hourlong');
-    if($Num){
+function getTiaoxHour($user)
+{
+    $where = array('userid' => $user, 'type' => '2');
+    $Num = M('tp_overtime')->where($where)->sum('hourlong');
+    if ($Num) {
         return $Num;
-    }else{
+    } else {
         return 0;
     }
 
 }
 
-function getKeyHour($user){
-    $where = array('userid' => $user,'type'=>'2');
-    $tiaox= M('tp_overtime')->where($where)->sum('hourlong');
-    $where = array('userid' => $user,'type'=>'1');
-    $jiab= M('tp_overtime')->where($where)->sum('hourlong');
-    $Num=$jiab-$tiaox;
-    if($Num){
+function getKeyHour($user)
+{
+    $where = array('userid' => $user, 'type' => '2');
+    $tiaox = M('tp_overtime')->where($where)->sum('hourlong');
+    $where = array('userid' => $user, 'type' => '1');
+    $jiab = M('tp_overtime')->where($where)->sum('hourlong');
+    $Num = $jiab - $tiaox;
+    if ($Num) {
         return $Num;
-    }else{
+    } else {
         return 0;
     }
 }

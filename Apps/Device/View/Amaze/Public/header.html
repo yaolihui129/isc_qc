@@ -31,6 +31,12 @@
         <span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span>
     </button>
     <div class="am-collapse am-topbar-collapse" id="topbar-collapse" >
+        <ul class="nav navbar-nav">
+            <li class="active hide" id="hide" onclick="hide()"><a href="#">隐藏 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="active " id="show" onclick="show()"><a href="#">显示 <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
         <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
             <li><a href="__APP__/Report" target=_blank><span class="glyphicon glyphicon-link"></span> QC质量平台</a></li>
             <switch name="Think.session.isLogin">
@@ -52,7 +58,7 @@
 </header>
 <div class="am-cf admin-main  ">
     <!-- sidebar start -->
-    <div class="admin-sidebar">
+    <div class="admin-sidebar hide">
         <ul class="am-list admin-sidebar-list ">
             <li><a href="__APP__/<{$Think.config.PRODUCT}>/Index"><span class="glyphicon glyphicon-book"> 设备&图书</span></a></li>
             <li><a href="__APP__/<{$Think.config.PRODUCT}>/Mine"><span class="glyphicon glyphicon-user"> 我的借用</span></a></li>

@@ -11,8 +11,8 @@ class IndexController extends PublicController
         $this->assign('search', $search);
         $where=array('type'=>'1','deleted'=>'0');
         $where['brand|ts|serial|asset_no|sys_version'] = array('like', '%' . $search . '%');
-        $data = chaxun('zt_tp_device', $where, 'id');
-//        $data=M('tp_device')->where($where)->select();
+//        $data = chaxun('zt_tp_device', $where, 'id');
+        $data = M('tp_device')->where($where)->select();
 //        dump($data);
         $this->assign('data', $data);
 

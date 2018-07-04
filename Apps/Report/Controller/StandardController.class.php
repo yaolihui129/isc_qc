@@ -36,44 +36,39 @@ class StandardController extends WebInfoController
     //正常迭代
     public function manage(){
         $var=array(
-            '1.周二，负责人参加需求讨论会，把接下来要做的迭代信息维护进禅道当中并指派给平台负责人
-                <br> &nbsp;&nbsp;（#平台负责人：车险-孟会会，CRM+CC-王晨梓，支付结算+基础服务-范峤）',
-            '2.周三，平台负责人指派迭代负责人，优先安排高级岗负责（为以后平衡积分）',
+            '1.周二，负责人参加需求讨论会，把迭代信息维护进禅道当中',
+            '2.周三，下班前所有测试人员按照抽签的方式决出迭代负责人',
             '3.周四，迭代负责人参加需求评审会，了解详细需求',
             '4.周五，<br>
-                &nbsp;&nbsp;1）Tower中按照评估规范给出里程碑<br>
+                &nbsp;&nbsp;1）Jira中按照评估规范给出里程碑<br>
                 &nbsp;&nbsp;2）禅道中精确给出迭代的上线日期<br>
                 &nbsp;&nbsp;3）禅道中细化测试任务，并分派给相关责任人（C类以上才迭代，至少2人参与）<br>
                 &nbsp;&nbsp;4）整理本次迭代中改动和影响的功能点，并拉取到本期迭代当中',
             '5.开发提测前一天<br>
                 &nbsp;&nbsp;1）整理完成本次迭代的原始需求<br>
-                &nbsp;&nbsp;2）提供冒烟用例（正常迭代）<br>
+                &nbsp;&nbsp;2）提供冒烟用例，测试用例必须包含步骤，和默认的测试数据<br>
                 &nbsp;&nbsp;3）梳理本次迭代的必测点（需要测试的场景流程）',
             '6.提测当天<br>
-                 &nbsp;&nbsp;1）未收到提测环境或者测试的冒烟测试未通过，需要发邮件预警并记录到QC平台的迭代风险模块供<br>
-                 &nbsp;&nbsp; &nbsp;&nbsp;（供以后调查和分析，原则上不允许出现同样的原因或者借口）<br>
-                 &nbsp;&nbsp;2）在迭代的版本管理中维护对应平台的版本号以供BUG提交时使用<br>
-                 &nbsp;&nbsp;3）没有预警信息迭代，测试的冒烟测试必须当天完成',
-            '7.测试过程中，<br>
+                 &nbsp;&nbsp;1）超过提测规定的时间开发未完成提交预演，需要发邮件预警并记录到QC平台的迭代风险模块供<br>
+                 &nbsp;&nbsp;2）在迭代的版本管理中维护对应平台的版本号以供BUG提交时使用',
+            '7.测试过程中<br>
                  &nbsp;&nbsp;1）每天按照测试的任务，下班前精确记录当天的工时（不加班的话最多8小时，原则按实际情况填写）<br>
-                 &nbsp;&nbsp;2）按照必测点，记录需要测试的没一个过程，留下每次的场景测试记录（QC平台的功能在本周内完成）<br>
+                 &nbsp;&nbsp;2）按照必测点，记录需要测试的没一个过程，留下每次的场景测试记录<br>
                  &nbsp;&nbsp;3）提倡写用例（禅道中），不必要太过详细，把必要动作和检查点留下即可<br>
-                 &nbsp;&nbsp;4）在每个里程碑完成后，及时更新Tower的检查项状态<br>
                  &nbsp;&nbsp;5）严格对照产品原型和效果图进行测试，原型上的没一个文案和提示都要进行对照，只要不符就是BUG（当然可以是产品设计的BUG）<br>
-                 &nbsp;&nbsp;6）提成执行用例时留下执行记录，这样也可以简化BUG的提交流程，同时从侧面记录下发开人员的发开质量<br>
+                 &nbsp;&nbsp;6）提倡执行用例时留下执行记录，这样也可以简化BUG的提交流程，同时从侧面记录下发开人员的发开质量<br>
                  &nbsp;&nbsp; &nbsp;&nbsp;（比如同一个问题被修改了N边，每次的问题还不一样。这些只靠BUG分析是体现不出来的）<br>
                  &nbsp;&nbsp;7）所有问题或者BUG必须记录在按，不必每次找开发或产品人员确认，允许BUG被打回',
             '8.预发环境测试：<br>
                 &nbsp;&nbsp;1）原则上要求预发环境安排在同一天完成<br>
                 &nbsp;&nbsp;2）预发环境原则上是不允许有较多的程序BUG产生的，<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;（如果有需要改代码才能修复的BUG出现，必须在迭代风险汇总记录并择期召开项目总结会）<br>
-                &nbsp;&nbsp;3）此时产品人员会同步进入验收，所有产品提出的BUG都记录为迭代风险，迭代完成后进行统一的分析汇总',
+                &nbsp;&nbsp;&nbsp;&nbsp;（如果有需要改代码才能修复的BUG出现，必须在迭代风险汇总记录并择期召开项目总结会）',
             '9.线上环境测试：<br>
                 &nbsp;&nbsp;1）配合产品完成线上的测试验证<br>
                 &nbsp;&nbsp;2）发布测试过的必测点（未发布的，认为所有环节都没有问题）<br>
                 &nbsp;&nbsp;3）严格把控上线的过程，如果上线完成在第二天凌晨以后，记录迭代风险，择期召开项目总结会<br>
                 &nbsp;&nbsp;4）到计划上线日期没有完成的上线（或不可能完成上线的，尽早发出延期风险预警，并记录迭代风险）<br>
-                &nbsp;&nbsp;5）迭代上线后，要督促相关责任人完成测试任务，负责人更新Tower的检查项状态，并将迭代任务拖至已上线的池子，不必勾选迭代任务<br>
+                &nbsp;&nbsp;5）迭代上线后，要督促相关责任人完成测试任务，负责人更新Jira的检查项状态，并将迭代任务拖至已上线<br>
                 &nbsp;&nbsp;6）关闭禅道中的迭代'
 
         );
@@ -85,7 +80,7 @@ class StandardController extends WebInfoController
         $var=array(
             '1.临时紧急追加的迭代任务，由平台负责人自行在禅道中建立迭代（按照标题和简称规范）',
             '2.平台负责人，直接分派给迭代负责人（目前先按分派执行，以后打算按抢单的模式来）',
-            '3.迭代负责人，按照精简模式在Tower上给出排期的里程碑',
+            '3.迭代负责人，按照精简模式在Jira上给出排期的里程碑',
             '4.迭代负责人，更新禅道迭代最后日期',
             '5.迭代负责人，在禅道建立测试任务并分派给自己',
             '6.迭代负责人，整理原始需求进禅道',
@@ -97,8 +92,8 @@ class StandardController extends WebInfoController
             '12.紧急迭代，建议冒烟验收完成后当天完成',
             '13.迭代负责人，在上线成功后，<br>
                 &nbsp;&nbsp;1）发布测试过的必测点，<br>
-                &nbsp;&nbsp;2）关闭禅道中的迭代<br>
-                &nbsp;&nbsp;3）Tower中任务拖至已上线/已完成（可以不勾选主项）',
+                &nbsp;&nbsp;2）关闭禅道中的迭代，<br>
+                    3）在Jira中把相应的主任务或故事拖至已上线。',
 
         );
         $this->assign('var', $var);
@@ -108,7 +103,7 @@ class StandardController extends WebInfoController
     public function score(){
         $var1=array(
             '1.为了规范测试流程和鼓励测试任务的记录',
-            '2.形成半年度绩效考核的排序依据（2018年3-6月份试运行不作数，6-12月份正式运行）'
+            '2.形成半年度绩效考核的排序依据'
         );
         $this->assign('var1', $var1);
 
@@ -130,19 +125,19 @@ class StandardController extends WebInfoController
         $this->assign('var3', $var3);
 
         $var4=array(
-            'A类（20+个功能点）：<span class="badge">15分/3-10分</span>',
-            'B类（10+个功能点）：<span class="badge">10分/2-7分</span>',
-            'C类（5+功能点）：<span class="badge">5分/1-3分</span>',
-            'D类（5个以下的功能点）：<span class="badge">2分/0分</span>'
+            'A类（30+个功能点）：<span class="badge">20分/10分</span>',
+            'B类（20+个功能点）：<span class="badge">16分/8分</span>',
+            'C类（10+功能点）：<span class="badge">10分/5分</span>',
+            'D类（10个及以下的功能点）：<span class="badge">5分/0分</span>'
         );
         $this->assign('var4', $var4);
 
         $var5=array(
-            '1.提供详细迭代必测点（场景功能点序列）<span class="badge">1-3分</span>',
-            '2.提供详细用例 <span class="badge">1-3分</span>',
-            '3.有详细测试用例执行记录 <span class="badge">1-5分</span>',
-	        '4.提供详细任务工时<span class="badge">1-3分</span>',
-	        '5.提供完善的必测点执行记录<span class="badge">5-10分</span>',
+            '1.提供详细迭代必测点（场景功能点序列）<span class="badge">3分</span>',
+            '2.提供详细用例 <span class="badge">3分</span>',
+            '3.有详细测试用例执行记录 <span class="badge">5分</span>',
+            '4.提供详细任务工时<span class="badge">3分</span>',
+            '5.提供完善的必测点执行记录<span class="badge">10分</span>',
 	        '6.每个自然月里有扣分记录<span class="badge">10分</span>.',
             '7.将学到的技能应用于实际项目并显著提高工作效率或质量<span class="badge">5-10分</span>'
         );
@@ -164,7 +159,7 @@ class StandardController extends WebInfoController
         $this->assign('var7', $var7);
 
         $var8=array(
-            '1.项目排期后未在禅道和Tower建立里程碑检查项<span class="badge">-3分</span>',
+            '1.项目排期后未在禅道和Jira建立里程碑检查项<span class="badge">-3分</span>',
             '2.未及时更新禅道和Tower任务和里程碑检查项<span class="badge">-1分</span>',
             '3.迭代中未整理和关联需求<span class="badge">-1分</span>',
             '4.未按时提供冒烟用例<span class="badge">-3分</span>',

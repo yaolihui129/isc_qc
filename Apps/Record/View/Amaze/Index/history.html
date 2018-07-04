@@ -1,6 +1,6 @@
 <layout name="layout"/>
 <!-- content start -->
-<div class="admin-content container">
+<div class="admin-content container" style="min-height: 500px">
 
     <ul class="nav nav-pills" role="tablist">
         <li role="presentation" >
@@ -11,6 +11,11 @@
         </li>
         <li role="presentation" class="active">
             <a href="__URL__/history">历史迭代</a>
+        </li>
+        <li role="presentation">
+            <a href="__URL__/assigne">待分派迭代
+                <span class="badge"><{$Think.session.account|countDraw=###}></span>
+            </a>
         </li>
     </ul>
 
@@ -36,7 +41,7 @@
         <volist name='arr' id='pro' empty="没有数据">
             <tr>
                 <td width=90%>
-                    <a href="__APP__/<{$Think.config.PRODUCT}>/Index/func/proid/<{$pro.id}>">
+                    <a href="__APP__/<{$Think.config.PRODUCT}>/Func/func/proid/<{$pro.id}>">
                         <small><span class="badge"><{$pro.qd|getZTUserName=###}></span><{$pro.name}></small>
                     </a>
                 </td>

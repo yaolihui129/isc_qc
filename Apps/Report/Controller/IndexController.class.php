@@ -20,7 +20,7 @@ class IndexController extends WebInfoController
         //检查逾期未复测的BUG
         $this->bug_noregress();
 
-        $this->theme('')->display();
+        $this->display();
     }
 
     public function owner(){
@@ -47,7 +47,7 @@ class IndexController extends WebInfoController
         $this->assign('data', $data);
 
 
-        $this->theme('')->display();
+        $this->display();
     }
 
     public function history(){
@@ -59,93 +59,92 @@ class IndexController extends WebInfoController
         $data = M('project')->where($where)->order("end desc,id")->select();
         $this->assign('data', $data);
 
-        $this->theme('')->display();
+        $this->display();
     }
 
-    public function link()
+    public function risk()
     {
-        //测试环境链接
-        $alix = array('name' => 'Alix测试环境', 'url' => 'http://192.168.145.117:8080/alix/', 'user' => 'admin', 'password' => '1', 'hosts' => '否');
-        $cfqcb = array('name' => 'OP车服-全车宝', 'url' => 'http://edit.cfw.taoche.com/order/index', 'user' => '无', 'password' => '', 'hosts' => '是');
-        $cfjr = array('name' => 'OP车服-金融', 'url' => 'http://cfw.taoche.com/edit/orderFinance/index', 'user' => '无', 'password' => '', 'hosts' => '是');
-        $data = array($alix, $cfqcb, $cfjr);
+        $_SESSION['proid'] = I('proid');
+        $where = array("proid" => I('proid'));
+        $data = M("tp_risk")->where($where)->select();
+        $this->assign("data", $data);
+
+        $this->display();
+    }
+
+    public function rules()
+    {
+        $_SESSION['proid'] = I('proid');
+        $where = array("zt_projectstory.project" => $_SESSION['proid'], 'zt_story.deleted' => '0');
+        $data = M('story')->join('zt_projectstory ON zt_projectstory.story =zt_story.id')->where($where)
+            ->field('
+                        zt_story.id as id,
+                        zt_story.branch as branch,
+                        zt_story.module as module,
+                        zt_story.title as title,
+                        zt_story.version as version
+                ')
+            ->order('zt_projectstory.order')->select();
+
+        $this->assign("data", $data);
+
+
+        $this->display();
+    }
+
+    public function test_case()
+    {
+        $_SESSION['proid'] = I('proid');
+        $where = array('zt_projectstory.project' => $_SESSION['proid']);
+        $data = M('projectstory')->where($where)->join('zt_story ON zt_story.id =zt_projectstory.story')->select();
         $this->assign('data', $data);
 
-        $hosts = '# wiki<br>
-                192.168.155.55 wiki.chexian.com<br>
-                #源代码管理<br>
-                192.168.155.65 gitlab.dev.daikuan.com<br><br>
-                192.168.155.48 jenkins.chexian.com<br>
-                0.0.0.0 account.jetbrains.com<br>
-                #安鑫保测试环境<br>
-                192.168.155.35 axb.chexian.com<br>
-                192.168.155.35 test.axb.chexian.com<br>
-                192.168.155.35 test.edit.axb.chexian.com<br>
-                192.168.155.35 test.b.chexian.com<br>
-                192.168.155.30 open.chexian.com<br>
-                # 车服测试环境<br>
-                192.168.155.30 test.cfw.chexian.com<br>
-                192.168.155.30 cfw.taoche.com<br>
-                192.168.155.30 edit.cfw.taoche.com<br>
-                
-                #OP后台测试环境<br>
-                192.168.155.55  top.chexian.com <br>
-                192.168.155.30 tadmin.pay.chexian.com<br>
-                #车险JOB测试环境<br>
-                192.168.155.35 cxjob.chexian.com<br>
-                ';
-        $this->assign('hosts', $hosts);
-        $this->theme('')->display();
+        $this->display();
     }
 
-    public function release()
+    public function smoke()
     {
-        //预发环境链接
-        $alix = array('name' => 'Alix测试环境', 'url' => 'http://alix.uat.yixincapital.com/login/index.jsp', 'user' => 'admin', 'password' => '1', 'hosts' => '否');
-        $cfqcb = array('name' => 'OP车服-全车宝', 'url' => 'http://edit.cfw.taoche.com/order/index', 'user' => '无', 'password' => '', 'hosts' => '是');
-        $cfjr = array('name' => 'OP车服-金融', 'url' => 'http://cfw.taoche.com/edit/orderFinance/index', 'user' => '无', 'password' => '', 'hosts' => '是');
-        $data = array($alix, $cfqcb, $cfjr);
+        $_SESSION['proid'] = I('proid');
+        $where = array('zt_projectstory.project' => $_SESSION['proid']);
+        $data = M('projectstory')->where($where)->join('zt_story ON zt_story.id =zt_projectstory.story')->select();
         $this->assign('data', $data);
 
-        $hosts = '# wiki<br>
-                192.168.155.55 wiki.chexian.com<br>
-                #源代码管理<br>
-                192.168.155.65 gitlab.dev.daikuan.com<br><br>
-                192.168.155.48 jenkins.chexian.com<br>
-                0.0.0.0 account.jetbrains.com<br>
-                #预发布环境72<br>
-                59.151.93.72 axb.chexian.com<br>
-                59.151.93.72 edit.axb.chexian.com<br>
-                59.151.93.72 open.chexian.com<br>
-                #预发布环境72<br>
-                59.151.93.72 cfw.taoche.com<br>
-                #测试OP后台<br>
-                192.168.155.30 edit.cfw.taoche.com';
-        $this->assign('hosts', $hosts);
-        $this->theme('')->display();
+        $this->display();
+
     }
 
-    public function online()
+    public function bug()
     {
-        //线上环境链接
-        $alix = array('name' => 'Alix测试环境', 'url' => '', 'user' => '', 'password' => '', 'hosts' => '否');
-        $cfqcb = array('name' => 'OP车服-全车宝', 'url' => 'http://edit.cfw.taoche.com/order/index', 'user' => '无', 'password' => '', 'hosts' => '否');
-        $cfjr = array('name' => 'OP车服-金融', 'url' => 'http://cfw.taoche.com/edit/orderFinance/index', 'user' => '无', 'password' => '', 'hosts' => '否');
-        $data = array($alix, $cfqcb, $cfjr);
+        $_SESSION['proid'] = I('proid');
+        $where = array("project" => I('proid'), "deleted" => '0');
+        $m = M("bug");
+        $data = $m->where($where)->order('status,id')->select();
         $this->assign('data', $data);
 
-        $hosts = '# wiki<br>
-                192.168.155.55 wiki.chexian.com<br>
-                #源代码管理<br>
-                192.168.155.65 gitlab.dev.daikuan.com<br><br>
-                192.168.155.48 jenkins.chexian.com<br>
-                0.0.0.0 account.jetbrains.com<br>';
+        $var = $m->where($where)->field("openedBy,count(id)")->group('openedBy')->order('count(id) desc')->select();
+        $this->assign('var', $var);
+        $var = $m->where($where)->field("resolvedBy,count(id)")->group('resolvedBy')->order('count(id) desc')->select();
+        $this->assign('var1', $var);
+        $var = $m->where($where)->field("closedBy,count(id)")->group('closedBy')->order('count(id) desc')->select();
+        $this->assign('var2', $var);
+        $var = $m->where($where)->field("module,count(id)")->group('module')->order('count(id) desc')->select();
+        $this->assign('var3', $var);
+        $var = $m->where($where)->field("assignedTo,count(id)")->group('assignedTo')->order('count(id) desc')->select();
+        $this->assign('var4', $var);
 
-        $this->assign('hosts', $hosts);
 
-        $this->theme('')->display();
+        $this->display();
     }
 
+    public function task()
+    {
+        $_SESSION['proid'] = I('proid');
+        $where['project'] = $_SESSION['proid'];
+        $where['deleted'] = '0';
+        $data = M('task')->where($where)->field('id,name,deadline,status,estimate,consumed,left')->select();
+        $this->assign('data', $data);
 
+        $this->display();
+    }
 
 }

@@ -1,5 +1,5 @@
 <layout name="layout"/>
-<div class="admin-content">
+<div class="admin-content container" style="min-height: 500px">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-info">
@@ -13,7 +13,7 @@
                         <ul class="list-group">
                             <volist name='data' id='pro' empty="没有数据">
                                 <li class="list-group-item">
-                                    <a href="__APP__/<{$Think.config.PRODUCT}>/Rules/prorules/proid/<{$pro.id}>">
+                                    <a href="__APP__/<{$Think.config.PRODUCT}>/Index/rules/proid/<{$pro.id}>">
                                         <span class="label label-default"><{$pro.qd|getZTUserName=###}></span>
                                         <span class="label label-info">功能点：<{$pro.id||countFuncRangeId='tp_func_range','project',###}></span>
                                         <small><{$pro.name}></small>

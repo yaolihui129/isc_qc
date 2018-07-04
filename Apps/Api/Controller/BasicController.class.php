@@ -4,9 +4,7 @@
  *
  */
 namespace Api\Controller;
-
 use Think\Controller;
-
 class BasicController extends Controller
 {
     function _empty()
@@ -21,7 +19,7 @@ class BasicController extends Controller
         return $data;
     }
 
-    //通用封装方法
+    //通用封装方法//todo
     function json($code,$message = '',$data = array())
     {
         if (!is_numeric($code)){
@@ -44,7 +42,8 @@ class BasicController extends Controller
         echo $arr;
         exit;
     }
-
+    //todo
+    //此方案可删除直接用ajax返回
     function json_public($content,$requestId,$sign='',$_timestamp='',$appId='TOB')
     {
         if($sign){
@@ -124,7 +123,7 @@ class BasicController extends Controller
         }
     }
 
-    //json
+    //json此方案可删除直接用ajax返回
     public static function jsonEncode($code,$message='',$data='')
     {
         if(!is_numeric($code))
@@ -141,52 +140,9 @@ class BasicController extends Controller
         return json_encode($result);
     }
 
-    //xml接口
-    public static function xmlEncode($code,$message,$data=array())
-    {
-        if(!is_numeric($code))
-        {
-            return '';
-        }
 
-        $result = array(
-            'code' => $code,
-            'message' => $message,
-            'data' => $data,
-        );
 
-        header("Content-type:text/xml;chaset=utf-8");
-        $xml = "<?xml version='1.0' encoding='utf-8'  ?>\n";
-        $xml .= "<root>\n";
-        $xml .= self::xmlToEncode($result);
-        $xml .=    "</root>\n";
 
-        return $xml;
-
-    }
-
-    //xml内容循环
-    public static function xmlToEncode($data)
-    {
-        if(empty($data))
-        {
-            return '';
-        }
-        $xml = $attr = '';
-        foreach ($data as $key => $value)
-        {
-            if(is_numeric($key))
-            {
-                $attr = "id='{$key}'";
-                $key = "item";
-            }
-            $xml .= "<{$key} {$attr}>";
-            $xml .= is_array($value) ? self::xmlToEncode($value) : $value ;
-            $xml .= "</{$key}>\n";
-        }
-
-        return $xml;
-    }
 
 
 }

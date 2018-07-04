@@ -49,16 +49,6 @@ class TaskController extends WebInfoController
         $this->display();
     }
 
-    public function protask()
-    {
-        $_SESSION['proid'] = I('proid');
-        $where['project'] = $_SESSION['proid'];
-        $where['deleted'] = '0';
-        $data = M('task')->where($where)->field('id,name,deadline,status,estimate,consumed,left')->select();
-        $this->assign('data', $data);
-
-        $this->display();
-    }
 
 }
    

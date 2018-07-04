@@ -6,7 +6,14 @@ return array(
         '__JS__'        => __ROOT__ . '/Public/js',
     ),
     'DEFAULT_THEME'     => 'Amaze',//默认模板目录
-    'PRODUCT'           => 'Report',//定义产品编号
+    'PRODUCT' => 'Record',//定义产品编号
     'DB_PREFIX'         => 'eo_',
+    'PROJECTTYPE' => array(
+        array('key' => 0, 'value' => 'Web'),
+        array('key' => 1, 'value' => 'App'),
+        array('key' => 2, 'value' => 'Pc'),
+        array('key' => 3, 'value' => '物联网'),
+        array('key' => 4, 'value' => '其他'),
+    )
 
 );

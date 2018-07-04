@@ -1,5 +1,5 @@
 <layout name="layout"/>
-<div class="admin-content">
+<div class="admin-content container" style="min-height: 500px">
     <div class="row">
         <div class="col-md-9">
             <div class="panel panel-info">
@@ -19,11 +19,9 @@
                                 <case value="通过"><tr class="success"></case>
                                 <case value="失败"><tr class="danger"></case>
                                 <case value="阻塞"><tr class="danger"></case>
-                                <default /><tr >
                             </switch>
-
                                 <td>
-                                   <small> 【<{$st.result}>】</small>
+                                    <{$st.id}>
                                     <span class="label label-default"><{$st.branch|getName=branch,###}></span>
                                     <span class="label label-primary"><{$st.module|getModuleName=###}></span>
                                     <small><{$st.func}></small>
@@ -41,14 +39,14 @@
                 </div>
                 <ul class="list-group">
                     <volist name='branch' id='st'>
-                        <switch name="st">
-                            <case value="$w">
-                                <li class="list-group-item list-group-item-warning">
-                            </case>
-                            <default/>
+                        <eq name="st" value="$w">
+                            <li class="list-group-item list-group-item-warning">
+                                <else/>
                             <li class="list-group-item ">
-                        </switch>
-                            <a href="__URL__/index/branch/<{$st}>"><{$st|getName=branch,###}></a>
+                        </eq>
+                        <a href="__URL__/index/branch/<{$st}>">
+                            <small><{$st|getName=branch,###}></small>
+                        </a>
                             <span class="badge"><{$st|countId='tp_func','branch',###}></span>
                         </li>
                     </volist>

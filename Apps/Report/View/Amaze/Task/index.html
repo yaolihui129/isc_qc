@@ -1,6 +1,6 @@
 <layout name="layout"/>
 <!-- content start -->
-<div class="admin-content">
+<div class="admin-content container" style="min-height: 500px">
     <div class="panel panel-info">
         <div class="panel-body">
             <ul class="nav nav-pills" role="tablist">
@@ -22,7 +22,7 @@
                         <div class="panel panel-success">
                             <div class="panel-heading"><{$_SESSION['taskAccount']|getZTUserName=###}> 最近7天的任务</div>
                             <div class="starter-template">
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel-group" role="tablist" aria-multiselectable="true">
                                     <volist name='arr' id='ar' empty="没有数据">
                                         <div class="panel panel-default">
                                             <div class="panel-heading" role="tab" id="heading<{$ar}>">
@@ -53,8 +53,8 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading" role="tab" id="heading<{$ar.id}>">
                                                     <h4 class="panel-title">
-                                                        <{$ar.id}>.<{$ar.project|getProNo=###}>
-                                                        <span class="label label-default"><{$ar.branch|getBranchName=###}></span>
+                                                        <{$ar.id}>.<{$ar.project|getName='project',###,'code'}>
+                                                        <span class="label label-default"><{$ar.branch|getName='branch',###}></span>
                                                         <span class="label label-info"><{$ar.module|getModuleName=###}></span>
                                                         <switch name="ar.resolvedby">
                                                             <case value="$_SESSION['taskAccount']">
@@ -87,13 +87,11 @@
                     <div class="col-md-3">
                         <ul class="list-group">
                             <volist name='users' id='user'>
-                                <switch name="user.account">
-                                    <case value="$_SESSION['taskAccount']">
-                                        <li class="list-group-item list-group-item-warning">
-                                    </case>
-                                    <default/>
+                                <eq name="user.account" value="$_SESSION['taskAccount']">
+                                    <li class="list-group-item list-group-item-warning">
+                                        <else/>
                                     <li class="list-group-item ">
-                                </switch>
+                                </eq>
                                 <a href="__URL__/index/account/<{$user.account}>"><{$user.realname}></a>
                                 <span class="badge">任务：<{$user.account|countTaskWorkTime=###}>;BUG:<{$user.account|countTaskBug=###}></span>
                                 </li>

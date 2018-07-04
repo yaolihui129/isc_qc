@@ -1,9 +1,16 @@
 <layout name="layout"/>
-<div class="admin-content">
+<div class="admin-content container" style="min-height: 500px">
+    <ul class="nav nav-pills" role="tablist">
+        <li role="presentation"><a href="__URL__/index">测试迭代评估</a></li>
+        <li role="presentation"><a href="__URL__/manage">测试迭代管理</a></li>
+        <li role="presentation"><a href="__URL__/bug">测试BUG管理</a></li>
+        <li role="presentation"><a href="__URL__/admittance">测试准入制度</a></li>
+        <li role="presentation" class="active"><a href="__URL__/score">考核积分计划</a></li>
+        <li role="presentation"><a href="__URL__/warning">预警邮件模板</a></li>
+        <li role="presentation"><a href="__URL__/pass">测试通过邮件</a></li>
+    </ul>
     <div class="panel panel-default">
-        <div class="panel-heading">考核积分计划</div>
         <div class="panel-body">
-
             <div class="panel panel-info">
                 <div class="panel-heading">目的和原则</div>
                 <div class="panel-body">
@@ -35,7 +42,7 @@
                             </volist>
                         </ul>
                         <h3>二）迭代规模<span class="badge pull-right">负责/参与</span></h3>
-                        <p>初级工程师不负责B类及以上的迭代，迭代负责人优先选用较高级工程师</p>
+                        <p>初级工程师不负责B类及以上的迭代</p>
                         <ul class="list-group">
                             <volist name='var4' id='st'>
                                 <li class="list-group-item"><{$st}></li>
@@ -47,8 +54,6 @@
                                 <li class="list-group-item"><{$st}></li>
                             </volist>
                         </ul>
-
-
                     </div>
                 </div>
             </div>
@@ -87,11 +92,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
-
 </div>

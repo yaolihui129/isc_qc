@@ -1,0 +1,63 @@
+<layout name="layout"/>
+<!-- content start -->
+<div class="admin-content container" style="min-height: 500px">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title"><{$Think.session.proid|getPro=###}>
+                <div class="btn-group pull-right">
+                    <a href="__APP__/Report" class="btn btn-warning btn-xs">返回</a>
+                </div>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Index/rules/proid/<{$Think.session.proid}>">需求<span
+                        class="badge">
+              <{$Think.session.proid|countPRules=###}></span></a></li>
+                <li role="presentation"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Index/task/proid/<{$Think.session.proid}>">任务
+                    <span class="badge"><{$Think.session.proid|countProTask=###}></span></a></li>
+                <li role="presentation"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Index/risk/proid/<{$Think.session.proid}>">风险
+                    <span class="badge"><{$Think.session.proid|countId='tp_risk','project',###}></span></a></li>
+                <li role="presentation"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Index/smoke/proid/<{$Think.session.proid}>">冒烟
+                    <span class="badge"><{$Think.session.proid|countSmokeCase=###}></span></a></li>
+                <li role="presentation" class="active"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Index/test_case/proid/<{$Think.session.proid}>">用例
+                    <span class="badge"><{$Think.session.proid|countProCase=###}></span></a></li>
+                <li role="presentation"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Func/func/proid/<{$Think.session.proid}>">功能点
+                    <span class="badge"><{$Think.session.proid|countFuncRangeId='tp_func_range','project',###}></span></a>
+                </li>
+                <li role="presentation"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Func/range/proid/<{$Think.session.proid}>">影响
+                    <span class="badge"><{$Think.session.proid|countId='tp_func_range','project',###}></span></a>
+                </li>
+                <li role="presentation"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Scene/index/proid/<{$Think.session.proid}>">必测点
+                    <span class="badge"><{$Think.session.proid|countId='tp_scene','project',###}></span></a>
+                </li>
+                <li role="presentation"><a
+                        href="__APP__/<{$Think.config.PRODUCT}>/Index/bug/proid/<{$Think.session.proid}>">BUG
+                    <span class="badge"><{$Think.session.proid|countId='bug','project',###}></span></a></li>
+            </ul>
+            <ul class="list-group">
+                <volist name='data' id='vo' empty="没有数据">
+                    <li class="list-group-item">
+                        <span class="label label-default"><{$vo.branch|getName='branch',###}></span>
+                        <span class="label label-info"><{$vo.module|getModuleName=###}></span>
+                        <{$vo.title}>【#<{$vo.version}>】
+                        <span class="badge"><{$vo.id|countStoryCase=###}></span>
+                        <br>
+                        <{$vo.id|getStoryCase=###}>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+      

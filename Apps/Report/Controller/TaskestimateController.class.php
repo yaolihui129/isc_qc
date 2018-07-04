@@ -17,6 +17,7 @@ class TaskestimateController extends WebInfoController
         $info = $this->getInfo();
         $m = M($info['table']);
         $map['account'] = array('in', C(QA_TESTER));
+
         $data = $m->where($map)->select();
         $arr[] = $data[0]['account'];
         foreach ($data as $d) {
@@ -27,6 +28,8 @@ class TaskestimateController extends WebInfoController
         $this->assign('arr', $arr);
 
         $where['zt_taskestimate.account'] = array('in', C(QA_TESTER));
+        $riqi = date('Y-m-d', time() - 30 * 24 * 3600);
+        $where['zt_taskestimate.date'] = array('gt', $riqi);
         $join = 'zt_task ON zt_taskestimate.task=zt_task.id';
         $var = $m->join($join)->where($where)->order('zt_task.project desc')->select();
         $project[] = $var[0]['project'];
@@ -69,10 +72,8 @@ class TaskestimateController extends WebInfoController
         $riqi = date("Y-m-d", time() - $day * 24 * 3600);
         $map['date'] = array('egt', $riqi);
         $map['account'] = array('in', C(QA_TESTER));
-        $join = 'zt_task ON zt_taskestimate.task=zt_task.id';
-        $data = $m->join($join)->where($map)->group('name')->order('date desc')->select();
-        $this->assign('data', $data);
-
+        $map['consumed'] = array('gt', 0);
+        $data = $m->where($map)->order('date desc')->select();
         $arr[] = $data[0]['date'];
         foreach ($data as $d) {
             if (!in_array($d['date'], $arr)) {
@@ -80,6 +81,20 @@ class TaskestimateController extends WebInfoController
             }
         }
         $this->assign('arr', $arr);
+
+        foreach ($data as $d) {
+            $v = join(',', $d); //降维,也可以用implode,将一维数组转换为用逗号连接的字符串
+            $temp[$d['task']] = $v;
+        }
+        $temp = array_unique($temp); //去掉重复的字符串,也就是重复的一维数组
+        foreach ($temp as $k => $v) {
+            $array = explode(',', $v); //再将拆开的数组重新组装
+            $temp2[$k]['task'] = $array[1];
+            $temp2[$k]['date'] = $array[2];
+            $temp2[$k]['account'] = $array[5];
+        }
+        $this->assign('data', $temp2);
+
         $this->display();
 
     }

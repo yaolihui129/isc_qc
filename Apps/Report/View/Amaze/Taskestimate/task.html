@@ -1,6 +1,6 @@
 <layout name="layout"/>
 <!-- content start -->
-<div class="admin-content">
+<div class="admin-content container" style="min-height: 500px">
     <div class="panel panel-info">
         <div class="panel-body">
             <ul class="nav nav-pills" role="tablist">
@@ -52,11 +52,11 @@
                     <volist name='data' id='st' empty="没有数据">
                         <tr>
                             <td>
-                                <{$st.id}>.<{$st.project|getName='project',###}>--<{$st.name}>
+                                <{$st.task}>.<{$st.task|getTaskProject=###}>-<{$st.task|getName='task',###}>
                                 <span class="badge pull-right"><{$st.account|getZTUserName=###}></span>
                             </td>
                             <volist name='arr' id='ar' empty="没有数据">
-                                <td><{$ar|sunDateSorty=$st[id],###}></td>
+                                <td><{$ar|sunDateSorty=$st[task],###,$st[account]}></td>
                             </volist>
                         </tr>
                     </volist>

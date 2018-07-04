@@ -33,6 +33,17 @@ class OvertimeController extends CommonController
         $end = mktime(21, 00);
         $end = date('H:i', $end);
         $this->assign('end', $end);
+        $shif = array(
+            array('key' => 0, 'value' => '否'),
+            array('key' => 1, 'value' => '是'),
+        );
+        //封装下拉列表
+        $meals = $this->select($shif, 'meals', 1);
+        $this->assign("meals", $meals);
+        $taxi = $this->select($shif, 'taxi', 0);
+        $this->assign("taxi", $taxi);
+
+
 
         $this->display();
     }

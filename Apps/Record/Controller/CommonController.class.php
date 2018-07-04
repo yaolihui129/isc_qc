@@ -20,7 +20,7 @@ class CommonController extends Controller
 
     function project($map = array(), $limit = 20)
     {
-        $map['testgp'] = 'YX';
+        $map['type'] = 'waterfall';
         $map['QD'] = array('neq', 'admin');
         $map['deleted'] = '0';
         $pros = M('project')->where($map)->order("status desc,end desc")->limit($limit)->select();
@@ -30,7 +30,7 @@ class CommonController extends Controller
     function projectDict($limit = 20)
     {
         /*项目迭代*/
-        $map['testgp'] = 'YX';
+        $map['type'] = 'waterfall';
         $map['QD']  = array('neq','admin');
         $map['deleted'] = '0';
         $pros = M('project')->where($map)->order("status desc,end desc")->limit($limit)->select();

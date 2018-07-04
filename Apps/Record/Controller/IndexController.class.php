@@ -17,7 +17,7 @@ class IndexController extends CommonController
         $count=$m->where($map)->count();
         $this->assign('count', $count);
         //我负责的迭代数量
-        $where=array('testgp'=>'YX','QD'=>$_SESSION['account'],'deleted'=>'0');
+        $where = array('type' => 'waterfall', 'QD' => $_SESSION['account'], 'deleted' => '0');
         $mine=$m->where($where)->count();
         $this->assign('mine', $mine);
 
@@ -26,7 +26,7 @@ class IndexController extends CommonController
     //我负责
     public function mine(){
 
-        $where['testgp'] = 'YX';
+        $where['type'] = 'waterfall';
         $where['deleted']='0';
         $where['QD']=$_SESSION['account'];
         $m=M('project');
@@ -53,7 +53,7 @@ class IndexController extends CommonController
     public function history(){
         $search = I('search');
         $this->assign('search', $search);
-        $map['testgp'] = 'YX';
+        $map['type'] = 'waterfall';
         $status = array('done', 'cancel','closed');
         $map['QD']  = array('neq','admin');
         $map['status'] = array('in', $status);
@@ -64,7 +64,7 @@ class IndexController extends CommonController
         $this->assign('arr', $arr);
 
         //我负责的迭代数量
-        $where=array('testgp'=>'YX','QD'=>$_SESSION['account'],'deleted'=>'0');
+        $where = array('type' => 'waterfall', 'QD' => $_SESSION['account'], 'deleted' => '0');
         $mine=$m->where($where)->count();
         $this->assign('mine', $mine);
 
@@ -80,6 +80,103 @@ class IndexController extends CommonController
         $this->display();
     }
 
+    public function assigne()
+    {
+        $where['type'] = 'waterfall';
+        $where['deleted'] = '0';
+        $where['status'] = 'wait';
+        $data = M('project')->where($where)->order("end desc,id")->select();
+        $this->assign('data', $data);
 
+        $this->display();
+    }
 
+    //抽签
+    function draw()
+    {
+        //1.先生成一个随机数
+        $draw = C(DRAW);
+        $key = rand(0, sizeof($draw) - 1);
+        $draw = $draw[$key];
+        //2.先查库，如果有值直接返回“您已经完成抽签”
+        $project = I('project');
+        $where = array('project' => $project, 'deleted' => '0');
+        $m = M('tp_project_assigne');
+        $data = $m->where($where)->select();
+        $arr = '';
+        $user = '';
+        $keys = '';
+        foreach ($data as $d) {
+            $arr[] = $d['draw'];
+            $user[] = $d['name'];
+            $keys[] = $d['key'];
+        }
+        $name = I("name");
+        if (in_array($name, $user)) {//判断此人是否已经抽过
+            $this->error("您已经完成此项目的抽签！");
+        } else {
+            if (in_array("$draw", $arr)) {
+                $this->error("你抽中的是" . $draw . ',签码重复请重抽');
+            } else {
+                $_GET['project'] = $project;
+                $_GET['name'] = $name;
+                $_GET['k'] = $key;
+                $_GET['draw'] = $draw;
+                $_GET['table'] = 'tp_project_assigne';
+                $this->insert();
+                if ($draw == 'JOKER') { //直接更新迭代负责人
+                    $_GET = array();
+                    $_GET['id'] = $project;
+                    $_GET['QD'] = $name;
+                    $_GET['table'] = 'project';
+                    $this->update();
+                } else {
+                    $data = $m->where($where)->order('k desc')->select();
+                    if (sizeof($data) >= (sizeof(C(QC_TESTER)) - 1)) {
+                        $_GET = array();
+                        $_GET['id'] = $project;
+                        $_GET['QD'] = $data[0]['name'];
+                        $_GET['table'] = 'project';
+                        $this->update();
+                    }
+                }
+            }
+
+        }
+    }
+
+    //放弃
+    function renounce()
+    {
+        $name = I('name');
+        if (countMyProject($name) < 3) {
+            $this->error("你负责的迭代小于3个，不能允许被放弃！");
+        } else {
+            $project = I('project');
+            $where = array('project' => $project, 'renounce' => '0', 'deleted' => '0');
+            $where['name'] = array('neq', $name);
+            $m = M('tp_project_assigne');
+            $data = $m->where($where)->order('k desc')->select();
+
+            if ($data) {//有其他人可以转移
+                //更改项目负责人
+                $_GET = array();
+                $_GET['id'] = $project;
+                $_GET['QD'] = $data[0]['name'];
+                $_GET['table'] = 'project';
+                $this->update();
+                $arr = $m->where(array('name' => $name, 'project' => $project, 'renounce' => '0', 'deleted' => '0'))->find();
+                //todo更改签码标识
+                $_GET = array();
+                $_GET['id'] = $arr['id'];
+                $_GET['renounce'] = '1';
+                $_GET['table'] = 'tp_project_assigne';
+                $this->update();
+
+            } else {
+                $this->error("没有其他人可承接，你不能放弃该迭代");
+            }
+        }
+
+    }
 }

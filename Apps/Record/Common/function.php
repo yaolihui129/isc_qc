@@ -89,4 +89,57 @@
             .'<small>'.$data['func'].'</small>';
         return $str;
     }
+
+function getDrawInfo($project)
+{
+    $where = array('project' => $project, 'deleted' => '0');
+    $data = M('tp_project_assigne')->where($where)->select();
+    $str = '';
+    if ($data) {
+        $str .= '<ul class="list-group">';
+        foreach ($data as $ar) {
+            $str .= '<li class="list-group-item">';
+            $str .= getZTUserName($ar['name']) . idRenounce($ar['renounce']);
+            $str .= '<span class="badge">' . $ar['draw'] . '</span>';
+            $str .= '</li>';
+        }
+        $str .= '</ul>';
+    }
+    return $str;
+}
+
+
+function countMyProject($name)
+{
+    $status = array('wait', 'doing', 'suspended');
+    $where['status'] = array('in', $status);
+    $where = array('type' => 'waterfall', 'QD' => $name, 'deleted' => '0');
+    $count = M('project')->where($where)->count();
+    return $count;
+}
+
+function countDraw($name)
+{
+    $where = array('type' => 'waterfall', 'deleted' => '0', 'status' => 'wait');
+    $project = M('project')->where($where)->select();
+    foreach ($project as $p) {
+        $pro[] = $p['id'];
+    }
+    $map['project'] = array('in', $pro);
+    $map['name'] = $name;
+    $assigne = M('tp_project_assigne')->where($map)->count();
+    $count = sizeof($project) - $assigne;
+
+    return $count;
+}
+
+function idRenounce($renounce)
+{
+    if ($renounce) {
+        $str = '放弃';
+    } else {
+        $str = '';
+    }
+    return $str;
+}
     

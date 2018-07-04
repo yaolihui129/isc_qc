@@ -10,6 +10,7 @@ class FuncController extends CommonController
         //平台信息
         $where['product'] = 6;
         $where['deleted'] = '0';
+
         $branch = array(32,38,37,39,53,54,55,56,57,58,59,60);
         $where['id'] = array('in', $branch);
         $data = M('branch')->where($where)->order('`order`')->select();
@@ -32,7 +33,11 @@ class FuncController extends CommonController
         $arr = $m->find(I('id'));
         $this->assign("arr", $arr);
 
-        $where = array('branch' => $arr['branch'], 'deleted' => "0");
+        $map = array('parent' => $arr['id'], 'type' => 'story', 'deleted' => "0");
+        $subModule = $m->where($map)->select();
+        $this->assign("sub", $subModule);
+
+        $where = array('branch' => $arr['branch'], 'type' => 'story', 'deleted' => "0");
         $data = $m->where($where)->order('path,`order`')->select();
         $this->assign("data", $data);
         /* 实例化模型*/

@@ -1,6 +1,6 @@
 <layout name="layout"/>
 <!-- content start -->
-<div class="admin-content">
+<div class="admin-content container" style="min-height: 500px">
     <div class="row">
         <div class="col-md-9">
             <div class="panel panel-info">
@@ -20,13 +20,11 @@
                 <div class="panel-heading"><h3 class="panel-title">考核周期</h3></div>
                 <ul class="list-group">
                     <volist name='saiJi' id='sj' >
-                        <switch name="ts">
-                            <case value="$quarter">
-                                <li class="list-group-item list-group-item-warning">
-                            </case>
-                            <default/>
+                        <eq name="sj" value="$quarter">
+                            <li class="list-group-item list-group-item-warning">
+                                <else/>
                             <li class="list-group-item ">
-                        </switch>
+                        </eq>
                             <a href="__URL__/index/quarter/<{$sj}>"><small><{$sj}></small></a>
                         </li>
                     </volist>

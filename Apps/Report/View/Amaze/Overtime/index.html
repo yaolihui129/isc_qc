@@ -1,6 +1,6 @@
 <layout name="layout"/>
 <!-- content start -->
-<div class="admin-content">
+<div class="admin-content container" style="min-height: 500px">
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
@@ -14,10 +14,14 @@
                         </tr>
                         <volist name='data' id='st'>
                             <tr>
-                                <td ><a href="__URL__/detailed/user/<{$st.id}>/name/<{$st.realname}>"><{$st.realname}></a></td>
-                                <td ><a href="__URL__/xiangq/type/1/user/<{$st.id}>/name/<{$st.realname}>"><{$st.id|getJiabHour=###}>小时</a></td>
+                                <td><a href="__URL__/detailed/user/<{$st.account}>"><{$st.realname}></a></td>
+                                <td>
+                                    <a href="__URL__/xiangq/type/1/user/<{$st.account}>"><{$st.id|getJiabHour=###}>小时</a>
+                                </td>
                                 <td ><{$st.id|getKeyHour=###}>小时</td>
-                                <td ><a href="__URL__/xiangq/type/2/user/<{$st.id}>/name/<{$st.realname}>"><{$st.id|getTiaoxHour=###}>小时</a></td>
+                                <td>
+                                    <a href="__URL__/xiangq/type/2/user/<{$st.account}>"><{$st.id|getTiaoxHour=###}>小时</a>
+                                </td>
                             </tr>
                         </volist>
                     </table>

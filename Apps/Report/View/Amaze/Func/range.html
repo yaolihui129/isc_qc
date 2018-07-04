@@ -1,5 +1,5 @@
 <layout name="layout"/>
-<div class="admin-content">
+<div class="admin-content container" style="min-height: 500px">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-info">
@@ -13,19 +13,19 @@
                 <div class="panel-body">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" ><a
-                                href="__APP__/<{$Think.config.PRODUCT}>/Rules/prorules/proid/<{$Think.session.proid}>">需求
+                                href="__APP__/<{$Think.config.PRODUCT}>/Index/rules/proid/<{$Think.session.proid}>">需求
                             <span class="badge"><{$Think.session.proid|countPRules=###}></span></a></li>
                         <li role="presentation"><a
-                                href="__APP__/<{$Think.config.PRODUCT}>/Task/protask/proid/<{$Think.session.proid}>">任务
+                                href="__APP__/<{$Think.config.PRODUCT}>/Index/task/proid/<{$Think.session.proid}>">任务
                             <span class="badge"><{$Think.session.proid|countProTask=###}></span></a></li>
                         <li role="presentation"><a
-                                href="__APP__/<{$Think.config.PRODUCT}>/Risk/index/proid/<{$Think.session.proid}>">风险
+                                href="__APP__/<{$Think.config.PRODUCT}>/Index/risk/proid/<{$Think.session.proid}>">风险
                             <span class="badge"><{$Think.session.proid|countId='tp_risk','project',###}></span></a></li>
                         <li role="presentation"><a
-                                href="__APP__/<{$Think.config.PRODUCT}>/Case/smoke/proid/<{$Think.session.proid}>">冒烟
+                                href="__APP__/<{$Think.config.PRODUCT}>/Index/smoke/proid/<{$Think.session.proid}>">冒烟
                             <span class="badge"><{$Think.session.proid|countSmokeCase=###}></span></a></li>
                         <li role="presentation"><a
-                                href="__APP__/<{$Think.config.PRODUCT}>/Case/procase/proid/<{$Think.session.proid}>">用例
+                                href="__APP__/<{$Think.config.PRODUCT}>/Index/test_case/proid/<{$Think.session.proid}>">用例
                             <span class="badge"><{$Think.session.proid|countProCase=###}></span></a></li>
                         <li role="presentation"><a
                                 href="__APP__/<{$Think.config.PRODUCT}>/Func/func/proid/<{$Think.session.proid}>">功能点
@@ -41,7 +41,7 @@
                             <span class="badge"><{$Think.session.proid|countId='tp_scene','project',###}></span></a>
                         </li>
                         <li role="presentation"><a
-                                href="__APP__/<{$Think.config.PRODUCT}>/Bug/index/proid/<{$Think.session.proid}>">BUG
+                                href="__APP__/<{$Think.config.PRODUCT}>/Index/bug/proid/<{$Think.session.proid}>">BUG
                             <span class="badge"><{$Think.session.proid|countId='bug','project',###}></span></a></li>
                     </ul>
                     <div class="starter-template">
