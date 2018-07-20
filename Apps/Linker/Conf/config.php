@@ -2,12 +2,14 @@
 return array(
     //'配置项'=>'配置值'
     'TMPL_PARSE_STRING' => array(
-        '__CSS__'       => __ROOT__ . '/Public/css',
-        '__JS__'        => __ROOT__ . '/Public/js',
+        '__CSS__' => __ROOT__ . '/Public/css',
+        '__JS__' => __ROOT__ . '/Public/js',
     ),
-    'DEFAULT_THEME'     => 'Amaze',//默认模板目录
+    'TMPL_ACTION_ERROR' => 'Public:error',
+    'TMPL_ACTION_SUCCESS' => 'Public:success',
+    'DEFAULT_THEME' => 'Amaze',//默认模板目录
     'PRODUCT' => 'Record',//定义产品编号
-    'DB_PREFIX'         => 'eo_',
+    'DB_PREFIX' => 'eo_',
     'PROJECTTYPE' => array(
         array('key' => 0, 'value' => 'Web'),
         array('key' => 1, 'value' => 'App'),

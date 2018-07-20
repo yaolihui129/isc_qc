@@ -1,0 +1,43 @@
+<layout name="layout"/>
+<!-- content start -->
+<div class="admin-content container" style="min-height: 500px">
+    <br/>
+    <div class="panel panel-default">
+        <div class="panel-heading">测试&预发环境Hosts配置</div>
+        <div class="panel-body">
+            <div class="starter-template">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">测试环境</div>
+                            <div class="panel-body">
+                                <volist name='test' id='st' empty="没有数据">
+                                    <{$st.ip}> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <{$st.hosts}>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <notempty name="st.remark">#<{$st.remark}></notempty>
+                                    <br/>
+                                </volist>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">预发环境</div>
+                            <div class="panel-body">
+                                <volist name='yufa' id='st' empty="没有数据">
+                                    <{$st.ip}> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <{$st.hosts}>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <notempty name="st.remark"> #<{$st.remark}></notempty>
+                                    <br/>
+                                </volist>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

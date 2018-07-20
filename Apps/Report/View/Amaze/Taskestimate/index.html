@@ -1,22 +1,22 @@
 <layout name="layout"/>
 <!-- content start -->
 <div class="admin-content container" style="min-height: 500px">
+
+    <ul class="nav nav-pills" role="tablist">
+        <li role="presentation"><a href="__APP__/<{$Think.config.PRODUCT}>/Task/person">人员负荷
+            <span class="badge"><{$arr.id}></span></a></li>
+        <li role="presentation" class="active"><a href="__APP__/<{$Think.config.PRODUCT}>/Taskestimate">迭代投入
+            <span class="badge"><{$arr.id}></span></a></li>
+        <li role="presentation"><a href="__APP__/<{$Think.config.PRODUCT}>/Taskestimate/task">任务分布
+            <span class="badge"><{$arr.id}></span></a></li>
+        <li role="presentation"><a href="__APP__/<{$Think.config.PRODUCT}>/Taskestimate/input">人员分布
+            <span class="badge"><{$arr.id}></span></a></li>
+        <li role="presentation"><a href="__APP__/<{$Think.config.PRODUCT}>/Task">任务详情
+            <span class="badge"><{$arr.id}></span></a></li>
+    </ul>
+
     <div class="panel panel-info">
         <div class="panel-body">
-            <ul class="nav nav-pills" role="tablist">
-                <li role="presentation"><a href="__APP__/<{$Think.config.PRODUCT}>/Task/person">人员负荷
-                    <span class="badge"><{$arr.id}></span></a></li>
-                <li role="presentation" class="active"><a href="__APP__/<{$Think.config.PRODUCT}>/Taskestimate">迭代投入
-                    <span class="badge"><{$arr.id}></span></a></li>
-                <li role="presentation"><a href="__APP__/<{$Think.config.PRODUCT}>/Taskestimate/task">任务分布
-                    <span class="badge"><{$arr.id}></span></a></li>
-                <li role="presentation"><a href="__APP__/<{$Think.config.PRODUCT}>/Taskestimate/input">人员分布
-                    <span class="badge"><{$arr.id}></span></a></li>
-                <li role="presentation"><a href="__APP__/<{$Think.config.PRODUCT}>/Task">任务详情
-                    <span class="badge"><{$arr.id}></span></a></li>
-            </ul>
-
-
             <div class="starter-template">
                 <table class="am-table am-table-striped am-table-hover table-main table-bordered">
                     <thead>

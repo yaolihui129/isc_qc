@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="__CSS__/Amaze/admin.css">
 
 
-
 </head>
 <body>
 <!--[if lte IE 9]>
@@ -38,16 +37,21 @@
             </li>
         </ul>
         <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-            <li><a href="http://qc.zhidaoauto.com/zentao" target=_blank><span class="glyphicon glyphicon-link"></span> 访问禅道</a></li>
-            <li><a href="http://qc.zhidaoauto.com/eoLinker" target=_blank><span class="glyphicon glyphicon-link"></span>eoLinke3.5</a></li>
-            <li><a href="__APP__/Device/Index/index" target=_blank><span class="glyphicon glyphicon-link"></span> 图书&设备</a></li>
+            <li><a href="http://qc.zhidaoauto.com/zentao" target=_blank><span class="glyphicon glyphicon-link"></span>
+                访问禅道</a></li>
+            <li><a href="http://qc.zhidaoauto.com/eoLinker" target=_blank><span class="glyphicon glyphicon-link"></span>eoLinke3.5</a>
+            </li>
+            <li><a href="__APP__/Device/Index/index" target=_blank><span class="glyphicon glyphicon-link"></span> 图书&设备</a>
+            </li>
             <empty name="_SESSION['isCLogin']">
-                <li><a href="__APP__/Record" target=_blank><span class="glyphicon glyphicon-log-in"></span> 记录平台</a></li>
+                <li><a href="__APP__/Record" target=_blank><span class="glyphicon glyphicon-log-in"></span> 记录平台</a>
+                </li>
                 <else/>
                 <li><span class="am-icon-user"></span> <{$_SESSION['realname']}> <span
                         class="am-icon-caret-down"></span></li>
             </empty>
-            <li><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+            <li><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span
+                    class="admin-fullText">开启全屏</span></a></li>
         </ul>
     </div>
 </header>
@@ -55,19 +59,24 @@
     <!-- sidebar start -->
     <div class="admin-sidebar hide">
         <ul class="am-list admin-sidebar-list">
-            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Index"><span class="glyphicon glyphicon-home"> 测试迭代</span></a></li>
+            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Index"><span
+                    class="glyphicon glyphicon-home"> 测试迭代</span></a></li>
             <li><a href="__APP__/<{$Think.config.PRODUCT}>/Risk"><span
                     class="glyphicon glyphicon-glass"> 风险及总结</span></a></li>
-            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Func" ><span class="glyphicon glyphicon-globe"> 功能地图</span></a></li>
+            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Func"><span
+                    class="glyphicon glyphicon-globe"> 功能地图</span></a></li>
             <li><a href="__APP__/<{$Think.config.PRODUCT}>/Hosts"><span
                     class="am-icon-file">&nbsp; &nbsp;  Hosts配置</span></a></li>
             <li><a href="__APP__/<{$Think.config.PRODUCT}>/Api"><span
                     class="glyphicon glyphicon-compressed"> 待测接口</span></a></li>
             <li><a href="__APP__/<{$Think.config.PRODUCT}>/Score"><span
                     class="glyphicon glyphicon-credit-card"> 考核排行</span></a></li>
-            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Bug/unconfirmed"><span class="glyphicon glyphicon-bell"> 待处理BUG</span></a></li>
-            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Task/person"><span class="glyphicon glyphicon-user"> 测试投入</span></a></li>
-            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Overtime"><span class="glyphicon glyphicon-time"> 加班调休</span></a></li>
+            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Bug/unconfirmed"><span class="glyphicon glyphicon-bell"> 待处理BUG</span></a>
+            </li>
+            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Task/person"><span
+                    class="glyphicon glyphicon-user"> 测试投入</span></a></li>
+            <li><a href="__APP__/<{$Think.config.PRODUCT}>/Overtime"><span class="glyphicon glyphicon-time"> 加班调休</span></a>
+            </li>
             <li><a href="__APP__/<{$Think.config.PRODUCT}>/Standard/"><span
                     class="am-icon-file"> &nbsp; &nbsp;测试规范</span></a></li>
         </ul>

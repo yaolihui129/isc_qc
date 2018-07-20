@@ -8,7 +8,7 @@ class IndexController extends WebInfoController
         $where['testgp'] = 'YX';
         $where['deleted']='0';
         $where['QD']  = array('neq','admin');
-        $status = array('wait', 'doing','suspended');//只看这些
+        $status = array('doing', 'suspended');//只看这些
         $where['status'] = array('in', $status);
         $data = M('project')->where($where)->order("end desc,id")->select();
         $this->assign('data', $data);

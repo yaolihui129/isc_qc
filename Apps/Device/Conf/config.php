@@ -8,6 +8,10 @@ return array(
         '__IMAGES__'    => __ROOT__ . '/Public/images/Device',
         '__UPLOAD__'    => __ROOT__ . '/Upload',
     ),
+    //默认错误跳转对应的模板文件
+    'TMPL_ACTION_ERROR' => 'Public:error',
+    //默认成功跳转对应的模板文件
+    'TMPL_ACTION_SUCCESS' => 'Public:success',
     'DEFAULT_THEME'     => 'Amaze',                             //默认模板目录
     'PRODUCT'           => 'Device',                            //定义产品编号
 

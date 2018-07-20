@@ -6,7 +6,7 @@ class IndexController extends CommonController
     //进行中迭代列表
     public function index()
     {
-        $status = array('wait', 'doing','suspended');//只看这些
+        $status = array('doing', 'suspended');//只看这些
         $map['status'] = array('in', $status);
         $map['deleted'] = '0';
         $map['QD']  = array('neq','admin');

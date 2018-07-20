@@ -168,6 +168,25 @@
         return $res;
     }
 
+function httpAuthGet($url, $user = 'ylh', $password = '123456')
+{
+    $ch = curl_init(); //1.获取初始化URL
+    //2.设置curl的参数
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 500);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_USERPWD, "$user:$password");
+    curl_setopt($ch, CURLOPT_URL, $url);
+    $res = curl_exec($ch);//3.采集
+    curl_close($ch);//4.关闭
+    if (curl_errno($ch)) {
+        $res = curl_errno($ch);
+    }
+    return $res;
+}
+
     function httpPost($url,$postJson){
         //1.获取初始化URL
         $ch=curl_init();
@@ -186,6 +205,35 @@
         }
         return $res;
     }
+
+function httpAuthPost($url, $postJson, $user = 'ylh', $password = '123456')
+{
+    //1.获取初始化URL
+    $ch = curl_init();
+    //2.设置curl的参数
+    curl_setopt($ch, CURLOPT_TIMEOUT, 500);       //设置超时时间
+    curl_setopt($ch, CURLOPT_URL, $url);          //设置抓取的url
+    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($ch, CURLOPT_USERPWD, "$user:$password");
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_COOKIESESSION, true);
+    curl_setopt($ch, CURLOPT_COOKIEFILE, "cookiefile");
+    curl_setopt($ch, CURLOPT_COOKIEJAR, "cookiefile");
+    curl_setopt($ch, CURLOPT_COOKIE, session_name() . '=' . session_id);
+    curl_setopt($ch, CURLOPT_HEADER, 0);        //设置头文件的信息作为数据流输出
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  //设置获取的信息以文件流的形式返回，而不是直接输出。
+    curl_setopt($ch, CURLOPT_POST, 1);            //设置post方式提交
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postJson);//post变量
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $res = curl_exec($ch);//3.采集
+    curl_close($ch);//4.关闭
+    if (curl_errno($ch)) {
+        $res = curl_errno($ch);
+    }
+    return $res;
+}
+
 
     //微信纯文本回复
     function wxReplyText($toUser,$fromUser,$content){
@@ -681,3 +729,20 @@ function getProst($value){
         }
     }
 
+
+function arrDate($data, $message = 'ok')
+{
+    if ($data) {
+        $arr = array(
+            'code' => 200,
+            'data' => $data,
+            'message' => $message
+        );
+    } else {
+        $arr = array(
+            'code' => 400,
+            'message' => 'error'
+        );
+    }
+    return $arr;
+}

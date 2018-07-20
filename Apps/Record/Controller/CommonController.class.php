@@ -14,7 +14,7 @@ class CommonController extends Controller
     }
 
     public function _empty()
-    { //错误网页重新定向到首页
+    {
         $this->redirect('public/404');
     }
 
