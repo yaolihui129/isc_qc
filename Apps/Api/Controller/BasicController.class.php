@@ -71,7 +71,6 @@ class BasicController extends Controller
         $where['deleted']='0';
         $data=M($table)->where($where)->order($order)->select();
         return $data;
-
     }
     //查找数据
     function find($table,$id){

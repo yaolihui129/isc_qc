@@ -4,7 +4,7 @@ return array(
 	'SHOW_PAGE_TRACE'       =>false,//显示页面Trace信息false
     'SESSION_AUTO_START'    => true,//开启SESSION
     'URL_MODEL' => '2',//URL模式
-    'MODULE_ALLOW_LIST' => array('Report', 'Record', 'Api', 'Xiuli', 'Xinda', 'Device', 'Linker', 'Jira'),//设置允许模块
+    'MODULE_ALLOW_LIST' => array('Report', 'Record', 'Api', 'Xiuli', 'Xinda', 'Device', 'Linker', 'Jira', 'Jirapi'),//设置允许模块
     'DEFAULT_MODULE'        => 'Report',//设置默认模块设置
     'MODULE_DENY_LIST'      => array('Common','Runtime'), // 禁止访问的模块列表
     'URL_CASE_INSENSITIVE'  =>true, //不区分大小写

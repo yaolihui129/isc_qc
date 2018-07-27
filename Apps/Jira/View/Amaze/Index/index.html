@@ -1,10 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>1121http://127.0.0.1/isc_qc/Api/Jiratest/login</h1>
-</body>
-</html>
+<layout name="layout"/>
+<div class="admin-content container" style="min-height: 500px">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <nav class="navbar navbar-inverse navbar-static-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">迭代&任务</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    项目：<{$Think.session.project|getName='project',###,'pname'}>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <volist name='project' id='pro'>
+                                        <li><a href="__URL__/index/project/<{$pro.key}>"><{$pro.value}></a></li>
+                                    </volist>
+                                </ul>
+                            </li>
+                            <li><a href="__URL__/index/project/<{$Think.session.project}>" class="active">进行中</a></li>
+                            <li><a href="__URL__/index/type/assigned/project/<{$Think.session.project}>">待分派</a></li>
+                            <li><a href="__URL__/index/type/done/project/<{$Think.session.project}>">已完成</a></li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <form action="__URL__/index " method="post" class="navbar-form navbar-left" role="search">
+                                <div class="form-group input-group">
+                                    <input type="text" class="form-control" name="search" value="<{$search}>"
+                                           placeholder="名称、关键字">
+                                    <input type="hidden" class="form-control" name="project"
+                                           value="<{$Think.session.project}>">
+                                    <input type="hidden" class="form-control" name="type"
+                                           value="<{$Think.session.type.index}>">
+                                    <span class="input-group-btn">
+                                         <button type="submit" class="btn btn-default"><span
+                                                 class="glyphicon glyphicon-search"></span></button>
+                                    </span>
+                                </div>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <table class="am-table am-table-striped am-table-hover table-main table-bordered">
+                <thead>
+                <tr>
+                    <th class="table-type" bgcolor="#ccc">KEY</th>
+                    <th class="table-type" bgcolor="#ccc">报告人</th>
+                    <th class="table-title" bgcolor="#ccc">需求&任务</th>
+
+                    <th class="table-type" bgcolor="#ccc">经办人</th>
+                    <th class="table-type" bgcolor="#ccc">开发负责人</th>
+                    <th class="table-date" bgcolor="#ccc">提测时间</th>
+                    <th class="table-type" bgcolor="#ccc">测试负责人</th>
+                    <th class="table-date" bgcolor="#ccc">上线时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                <volist name='data' id='da' empty="没有数据">
+                    <tr>
+                        <td><{$Think.session.project|getName='project',###,'pkey'}>-<{$da.issuenum}></td>
+                        <td><{$da.reporter}></td>
+                        <td>
+                            【<{$da.issuetype|getName='issuetype',###,'pname'}>】
+                            <{$da.summary}>
+                            <span class="badge pull-right"><{$da.issuestatus|getName='issuestatus',###,'pname'}></span>
+                        </td>
+
+                        <td><{$da.assignee}></td>
+                        <td><{$da.id|getCustomFieldValue=###,'10302'}></td>
+                        <td></td>
+                        <td><{$da.id|getCustomFieldValue=###,'10303'}></td>
+                        <td><{$da.resolutiondate}></td>
+                    </tr>
+                </volist>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

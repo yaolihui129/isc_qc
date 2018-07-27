@@ -206,6 +206,45 @@ function httpAuthGet($url, $user = 'ylh', $password = '123456')
         return $res;
     }
 
+function httpJsonPost($url, $postJson)
+{
+    //1.获取初始化URL
+    $ch = curl_init();
+    //2.设置curl的参数
+    curl_setopt($ch, CURLOPT_TIMEOUT, 500);       //设置超时时间
+    curl_setopt($ch, CURLOPT_URL, $url);          //设置抓取的url
+    curl_setopt($ch, CURLOPT_HEADER, 0);        //设置头文件的信息作为数据流输出
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  //设置获取的信息以文件流的形式返回，而不是直接输出。
+    curl_setopt($ch, CURLOPT_POST, 1);            //设置post方式提交
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postJson);//post变量
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $res = curl_exec($ch);//3.采集
+    curl_close($ch);//4.关闭
+    if (curl_errno($ch)) {
+        $res = curl_errno($ch);
+    }
+    return $res;
+}
+
+function httpPut($url, $putJson)
+{
+    $ch = curl_init();
+    $header[] = "Content-type:image/jpeg";//定义header，可以加多个
+    curl_setopt($ch, CURLOPT_URL, $url); //定义请求地址
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "put"); //定义请求类型，当然那个提交类型那一句就不需要了
+    curl_setopt($ch, CURLOPT_HEADER, 0); //定义是否显示状态头 1：显示 ； 0：不显示
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $header);//定义header
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//定义是否直接输出返回流
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $putJson); //定义提交的数据
+    $res = curl_exec($ch);
+    curl_close($ch);//关闭
+    if (curl_errno($ch)) {
+        $res = curl_errno($ch);
+    }
+    return $res;
+}
+
 function httpAuthPost($url, $postJson, $user = 'ylh', $password = '123456')
 {
     //1.获取初始化URL
@@ -241,12 +280,12 @@ function httpAuthPost($url, $postJson, $user = 'ylh', $password = '123456')
         $msgType   = 'text';
         $time      = time();
         $template  ="<xml>
-        <ToUserName><![CDATA[%s]]></ToUserName>
-        <FromUserName><![CDATA[%s]]></FromUserName>
-        <CreateTime>%s</CreateTime>
-        <MsgType><![CDATA[%s]]></MsgType>
-        <Content><![CDATA[%s]]></Content>
-        </xml>";
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                    </xml>";
         echo sprintf($template,$toUser,$fromUser,$time,$msgType,$content);
     }
 
