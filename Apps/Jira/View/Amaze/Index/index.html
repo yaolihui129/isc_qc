@@ -1,7 +1,8 @@
 <layout name="layout"/>
 <div class="admin-content container" style="min-height: 500px">
+
     <div class="panel panel-default">
-        <div class="panel-body">
+
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -12,7 +13,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">迭代&任务</a>
+                        <a class="navbar-brand" href="#">迭代-需求&任务</a>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
@@ -20,6 +21,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">
                                     项目：<{$Think.session.project|getName='project',###,'pname'}>
+                                    <span class="am-icon-caret-down"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <volist name='project' id='pro'>
@@ -27,9 +29,24 @@
                                     </volist>
                                 </ul>
                             </li>
-                            <li><a href="__URL__/index/project/<{$Think.session.project}>" class="active">进行中</a></li>
-                            <li><a href="__URL__/index/type/assigned/project/<{$Think.session.project}>">待分派</a></li>
-                            <li><a href="__URL__/index/type/done/project/<{$Think.session.project}>">已完成</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <switch name="Think.session.type.index">
+                                        <case value="done">已完成</case>
+                                        <case value="">进行中</case>
+                                    </switch>
+
+                                    <span class="am-icon-caret-down"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="__URL__/index/project/<{$Think.session.project}>">进行中</a></li>
+                                    <li><a href="__URL__/index/type/done/project/<{$Think.session.project}>">已完成</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
@@ -52,17 +69,22 @@
                 </div>
             </nav>
 
-            <table class="am-table am-table-striped am-table-hover table-main table-bordered">
+        <ul class="nav nav-pills" role="tablist">
+            <li role="presentation" class="active">
+                <a href="__URL__/index/project/<{$Think.session.project}>">进行中</a>
+            </li>
+            <li role="presentation">
+                <a href="__URL__/assigned/type/assigned/project/<{$Think.session.project}>">待分派</a>
+            </li>
+        </ul>
+
+        <table class="am-table am-table-striped am-table-hover table-main table-bordered">
                 <thead>
                 <tr>
                     <th class="table-type" bgcolor="#ccc">KEY</th>
                     <th class="table-type" bgcolor="#ccc">报告人</th>
                     <th class="table-title" bgcolor="#ccc">需求&任务</th>
-
                     <th class="table-type" bgcolor="#ccc">经办人</th>
-                    <th class="table-type" bgcolor="#ccc">开发负责人</th>
-                    <th class="table-date" bgcolor="#ccc">提测时间</th>
-                    <th class="table-type" bgcolor="#ccc">测试负责人</th>
                     <th class="table-date" bgcolor="#ccc">上线时间</th>
                 </tr>
                 </thead>
@@ -70,23 +92,19 @@
                 <volist name='data' id='da' empty="没有数据">
                     <tr>
                         <td><{$Think.session.project|getName='project',###,'pkey'}>-<{$da.issuenum}></td>
-                        <td><{$da.reporter}></td>
+                        <td><{$da.reporter|getJiraName=###}></td>
                         <td>
                             【<{$da.issuetype|getName='issuetype',###,'pname'}>】
                             <{$da.summary}>
                             <span class="badge pull-right"><{$da.issuestatus|getName='issuestatus',###,'pname'}></span>
                         </td>
-
-                        <td><{$da.assignee}></td>
-                        <td><{$da.id|getCustomFieldValue=###,'10302'}></td>
-                        <td></td>
-                        <td><{$da.id|getCustomFieldValue=###,'10303'}></td>
+                        <td><{$da.assignee|getJiraName=###}></td>
                         <td><{$da.resolutiondate}></td>
                     </tr>
                 </volist>
                 </tbody>
             </table>
-        </div>
+
     </div>
 
 </div>

@@ -1,27 +1,114 @@
 <?php
-
 namespace Jirapi\Controller;
-
 use Think\Controller\RestController;
-
 class BasicController extends RestController
 {
 
+    public function index()
+    {
+        switch ($this->_method) {
+            case 'get': // get请求处理代码
+                $this->get();
+                break;
+            case 'put': // put请求处理代码
+                $this->put();
+                break;
+            case 'post': // post请求处理代码
+                $this->post();
+                break;
+            case 'delete': // delete请求处理代码
+                $this->delete();
+                break;
+            case 'head': // head请求处理代码
+                $this->head();
+                break;
+        }
+    }
+
+    function get()
+    {
+        $var = $this->init();
+        if ($_GET['id']) {
+            $data = $this->find($var['table'], $_GET['id'], $var['field']);
+        } elseif ($_GET['method'] == 'find') {
+            $data = $this->find_one($var['table'], $var['where'], $var['order'], $var['field']);
+        } elseif ($_GET['method'] == 'count') {
+            $data = $this->count($var['table'], $var['where']);
+        } else {
+            $data = $this->query($var['table'], $var['where'], $var['order'], $var['field']);
+        }
+        $this->ajaxReturn($data);
+    }
+
+    function put()
+    {
+        $var = $this->init();
+        $data = array('暂不提供该功能');
+        $this->response($data, 'json');
+    }
+
+    function post()
+    {
+        $var = $this->init();
+        $data = array('暂不提供该功能');
+        $this->ajaxReturn($data);
+    }
+
+    function delete()
+    {
+        $var = $this->init();
+        $data = array('暂不提供该功能');
+        $this->ajaxReturn($data);
+    }
+
+    function head()
+    {
+        $var = $this->init();
+        $data = array('暂不提供该功能');
+        $this->ajaxReturn($data);
+    }
+
     //查询数据
-    function query($table, $where, $order = 'id')
+    function query($table, $where, $order = 'id', $field = '')
     {
         $where['deleted'] = '0';
-        $data = M($table)->where($where)->order($order)->select();
+        $data = M($table)->where($where)->order($order)->field($field)->select();
+        if (!$data) {
+            $data = '查不到数据';
+        }
         return $data;
     }
 
-    //查找数据
-    function find($table, $id)
+    //根据条件查询最符合的一条数据
+    function find_one($table, $where, $order = 'id desc', $field = '')
     {
-        $data = M($table)->find($id);
+        $where['deleted'] = '0';
+        $data = M($table)->where($where)->order($order)->field($field)->find();
+        if (!$data) {
+            $data = '查不到数据';
+        }
+        return $data;
+    }
+    //查找数据
+    function find($table, $id, $field = '')
+    {
+        $data = M($table)->field($field)->find($id);
+        if (!$data) {
+            $data = '查不到数据';
+        }
         return $data;
     }
 
+    //根据条件统计数量
+    function count($table, $where)
+    {
+        $where['deleted'] = '0';
+        $count = M($table)->where($where)->count();
+        if (!$count) {
+            $count = '查不到数据';
+        }
+        return $count;
+    }
     //插入数据
     function insert($var, $table)
     {
@@ -37,7 +124,6 @@ class BasicController extends RestController
             }
         }
     }
-
     //更新数据
     function update($var, $table)
     {

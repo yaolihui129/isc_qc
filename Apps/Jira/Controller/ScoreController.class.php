@@ -1,7 +1,7 @@
 <?php
 
 namespace Jira\Controller;
-class ScoreController extends CommonController
+class ScoreController extends WebInfoController
 {
     //我的积分
     public function index()

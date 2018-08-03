@@ -15,8 +15,20 @@
                             </volist>
                         </ul>
                     </li>
-                    <li><a href="__URL__/index/project/<{$Think.session.project}>" class="active">进行中</a></li>
-                    <li><a href="__URL__/index/type/done/project/<{$Think.session.project}>">已完成</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            <switch name="Think.session.type.plan">
+                                <case value="done">已完成</case>
+                                <case value="">进行中</case>
+                            </switch>
+                            <span class="am-icon-caret-down"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="__URL__/index/project/<{$Think.session.project}>" class="active">进行中</a></li>
+                            <li><a href="__URL__/index/type/done/project/<{$Think.session.project}>">已完成</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <form action="__URL__/index " method="post" class="navbar-form navbar-left" role="search">
@@ -43,17 +55,27 @@
             <th class="table-type" bgcolor="#ccc">报告人</th>
             <th class="table-type" bgcolor="#ccc">经办人</th>
             <th class="table-date" bgcolor="#ccc">上线时间</th>
+            <th class="table-type" bgcolor="#ccc">测试报告</th>
         </tr>
         </thead>
         <tbody>
         <volist name='data' id='da' empty="没有数据">
             <tr>
                 <td><{$Think.session.project|getName='project',###,'pkey'}>-<{$da.issuenum}></td>
-                <td><{$da.summary}><span
-                        class="pull-right">【<{$da.issuestatus|getName='issuestatus',###,'pname'}>】</span></td>
-                <td><{$da.reporter}></td>
-                <td><{$da.assignee}></td>
+                <td>
+                    <a href="__APP__/<{$Think.config.PRODUCT}>/Testcycle/index/tp/<{$da.id}>"><{$da.summary}></a>
+                    <span class="pull-right">
+                        【<{$da.issuestatus|getName='issuestatus',###,'pname'}>】
+                    </span>
+                </td>
+                <td><{$da.reporter|getJiraName=###}></td>
+                <td><{$da.assignee|getJiraName=###}></td>
                 <td><{$da.resolutiondate}></td>
+                <td>
+                    <a href="__APP__/<{$Think.config.PRODUCT}>/Report/index">测试环境</a>
+                    <span class="pull-right"><a
+                            href="mailto:aaa@5icool.org?cc=ylh@zhidaoauto.com&subject=ccc&body=xxx%0d%0ayyy">线上环境</a></span>
+                </td>
             </tr>
         </volist>
         </tbody>

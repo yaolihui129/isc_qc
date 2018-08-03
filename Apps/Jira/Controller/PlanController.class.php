@@ -17,6 +17,7 @@ class PlanController extends WebInfoController
         }
 
         $where['PROJECT'] = intval($_SESSION['project']);
+        $where['issuetype'] = '10102';
 
         $search = trim(I('search'));
         $_SESSION['search']['index'] = $search;
@@ -24,21 +25,15 @@ class PlanController extends WebInfoController
 
         $where['SUMMARY|issuenum'] = array('like', '%' . $search . '%');
         $_SESSION['map']['plan'] = $where;
-
-        $url = C(JIRAPI) . "/Jirapi/issue/CX/plan";
+        $url = C(JIRAPI) . "/Jirapi/issue";
         $data = httpJsonPost($url, json_encode($where));
         $data = json_decode(trim($data, "\xEF\xBB\xBF"), true);
-
-//        $where['PROJECT']=intval($_SESSION['project']);
-//        $where['issuetype']='10102';
-//        $data=M('jiraissue')->where($where)->select();
-
         $this->assign('data', $data);
+
         $project = $this->projectDict();
         $this->assign('project', $project);
 
         $this->display();
     }
-
 
 }

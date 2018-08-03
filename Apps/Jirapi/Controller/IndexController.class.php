@@ -1,21 +1,18 @@
 <?php
-
 namespace Jirapi\Controller;
 class IndexController extends BasicController
 {
-    public function index()
+    function init()
     {
-        switch ($this->_method) {
-            case 'get': // get请求处理代码
-                $this->get_list();
-                break;
-            case 'put': // put请求处理代码
-                $this->put_list();
-                break;
-            case 'post': // post请求处理代码
-                $this->post_fun();
-                break;
-        }
+        $data = array(
+            'table' => 'component',
+            'where' => '',
+            'map' => '',
+            'order' => '',
+            'field' => '',
+
+        );
+        return $data;
     }
 
     function get_list()
@@ -24,7 +21,7 @@ class IndexController extends BasicController
         $this->response($data, 'json');
     }
 
-    function put_list()
+    function put()
     {
         $data = array('A', $_GET);
         $this->response($data, 'json');

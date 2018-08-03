@@ -1,9 +1,6 @@
 <?php
-
 namespace Jira\Controller;
-
 use Think\Controller;
-
 class LoginController extends Controller
 {
     public function index()
@@ -32,7 +29,7 @@ class LoginController extends Controller
             $this->redirect($url);
 //            $this->success('ok',U($url));
         } else {
-            dump($arr);
+//            dump($arr);
             $this->error('用户或密码错误，请重新登陆！', "index");
         }
 

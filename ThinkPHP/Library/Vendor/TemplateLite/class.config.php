@@ -1,6 +1,6 @@
 <?php
 /*
- * Project:	template_lite, a smarter template engine
+ * Plan:	template_lite, a smarter template engine
  * File:	class.config.php
  * Author:	Paul Lockaby <paul@paullockaby.com>, Mark Dickenson <akapanamajack@sourceforge.net>
  * Copyright:	2003,2004,2005 by Paul Lockaby, 2005,2006 Mark Dickenson

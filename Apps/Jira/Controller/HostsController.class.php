@@ -2,7 +2,7 @@
 
 namespace Jira\Controller;
 
-class HostsController extends CommonController
+class HostsController extends WebInfoController
 {
     public function index()
     {
@@ -13,15 +13,6 @@ class HostsController extends CommonController
         $where = array('type' => '1', 'deleted' => '0');
         $yufa = $m->where($where)->order('hosts')->select();
         $this->assign("yufa", $yufa);
-
-        $type = array(
-            array('key' => 0, 'value' => '测试'),
-            array('key' => 1, 'value' => '预发'),
-            array('key' => 2, 'value' => '线上'),
-        );
-        //封装下拉列表
-        $type = $this->select($type, 'type', 0);
-        $this->assign("type", $type);
 
         $this->display();
     }

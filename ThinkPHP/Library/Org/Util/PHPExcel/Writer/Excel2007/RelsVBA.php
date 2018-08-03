@@ -36,7 +36,7 @@
 class PHPExcel_Writer_Excel2007_RelsVBA extends PHPExcel_Writer_Excel2007_WriterPart
 {
 	/**
-	 * Write relationships for a signed VBA Project
+     * Write relationships for a signed VBA Plan
 	 *
 	 * @param 	PHPExcel	$pPHPExcel
 	 * @return 	string 		XML Output

@@ -1,6 +1,6 @@
 <?php
 /**
- * Project:     Smarty: the PHP compiling template engine
+ * Plan:     Smarty: the PHP compiling template engine
  * File:        SmartyBC.class.php
  * SVN:         $Id: SmartyBC.class.php 2504 2011-12-28 07:35:29Z liu21st $
  *

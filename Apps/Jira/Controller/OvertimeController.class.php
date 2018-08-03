@@ -1,47 +1,54 @@
 <?php
 
 namespace Jira\Controller;
-class OvertimeController extends CommonController
+class OvertimeController extends WebInfoController
 {
     public function index()
     {
+//        $this->isLogin();
         $m = M('tp_overtime');
-        $where = array('userid' => $_SESSION['id']);
-        $where['type'] = '1';
-        $jiab = $m->where($where)->order('riqi desc')->limit(10)->select();
-        $jiabNum = $m->where($where)->count();
-        $this->assign('arr', $jiab);
+        if ($_SESSION['user']) {
+            $where = array('userid' => $_SESSION['id']);
+            $where['type'] = '1';
+            $jiab = $m->where($where)->order('riqi desc')->limit(10)->select();
+            $jiabNum = $m->where($where)->count();
+            $this->assign('arr', $jiab);
 
-        $jiabHour = $m->where($where)->sum('hourlong');
+            $jiabHour = $m->where($where)->sum('hourlong');
 
-        $where['type'] = '2';
-        $tiaox = $m->where($where)->order('riqi desc')->limit(10)->select();
-        $tiaoxNum = $m->where($where)->count();
-        $this->assign('tiaox', $tiaox);
+            $where['type'] = '2';
+            $tiaox = $m->where($where)->order('riqi desc')->limit(10)->select();
+            $tiaoxNum = $m->where($where)->count();
+            $this->assign('tiaox', $tiaox);
 
-        $tiaoxHour = $m->where($where)->sum('hourlong');
-        $keyHour = $jiabHour - $tiaoxHour;
-        $hour = array($jiabHour, $tiaoxHour, $keyHour, $jiabNum, $tiaoxNum);
-        $this->assign('hour', $hour);
+            $tiaoxHour = $m->where($where)->sum('hourlong');
+            $keyHour = $jiabHour - $tiaoxHour;
+            $hour = array($jiabHour, $tiaoxHour, $keyHour, $jiabNum, $tiaoxNum);
+            $this->assign('hour', $hour);
 
 
-        $riqi = date("Y-m-d", time());
-        $this->assign('riqi', $riqi);
-        $begin = mktime(19, 00);//mktime(hour,minute,second,month,day,year)
-        $begin = date('H:i', $begin);
-        $this->assign('begin', $begin);
-        $end = mktime(21, 00);
-        $end = date('H:i', $end);
-        $this->assign('end', $end);
-        $shif = array(
-            array('key' => 0, 'value' => '否'),
-            array('key' => 1, 'value' => '是'),
-        );
-        //封装下拉列表
-        $meals = $this->select($shif, 'meals', 1);
-        $this->assign("meals", $meals);
-        $taxi = $this->select($shif, 'taxi', 0);
-        $this->assign("taxi", $taxi);
+            $riqi = date("Y-m-d", time());
+            $this->assign('riqi', $riqi);
+            $begin = mktime(19, 00);//mktime(hour,minute,second,month,day,year)
+            $begin = date('H:i', $begin);
+            $this->assign('begin', $begin);
+            $end = mktime(21, 00);
+            $end = date('H:i', $end);
+            $this->assign('end', $end);
+            $shif = array(
+                array('key' => 0, 'value' => '否'),
+                array('key' => 1, 'value' => '是'),
+            );
+            //封装下拉列表
+            $meals = $this->select($shif, 'meals', 1);
+            $this->assign("meals", $meals);
+            $taxi = $this->select($shif, 'taxi', 0);
+            $this->assign("taxi", $taxi);
+        } else {
+            $this->assign('data', C(QA_TESTER));
+        }
+
+
 
 
         $this->display();

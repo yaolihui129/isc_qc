@@ -1,18 +1,18 @@
 <?php
 
 namespace Jira\Controller;
-class AppraisalController extends CommonController
+class AppraisalController extends WebInfoController
 {
     //绩效考核页面
     public function index()
     {
-        $user = ['2', '4', '9'];
+        $user = ['ylh', 'cf'];
         $dissent = array(
             array('key' => '1', 'value' => '允许申诉'),
             array('key' => '0', 'value' => '不允许申诉'),
         );
         $tester = C(QC_TESTER);
-        if (in_array($_SESSION['id'], $user)) {
+        if (in_array($_SESSION['user'], $user)) {
             $project = $this->projectDict(15);
             foreach ($project as $pro) {
                 $a[] = $pro['key'];

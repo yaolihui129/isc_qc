@@ -1,7 +1,7 @@
 <?php
 
 namespace Jira\Controller;
-class RiskController extends CommonController
+class RiskController extends WebInfoController
 {
     public function index()
     {

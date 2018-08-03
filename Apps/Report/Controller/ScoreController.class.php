@@ -1,7 +1,5 @@
 <?php
-
 namespace Report\Controller;
-
 class ScoreController extends WebInfoController
 {
     public function index()
