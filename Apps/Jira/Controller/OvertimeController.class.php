@@ -5,10 +5,24 @@ class OvertimeController extends WebInfoController
 {
     public function index()
     {
-//        $this->isLogin();
+        $where = array('deleted' => '0');
+        $data = M('tp_overtime')->where($where)->select();
+        $var = array();
+        foreach ($data as $da) {
+            if (!in_array(trim($da['user']), $var)) {
+                $var[] = trim($da['user']);
+            }
+        }
+        $this->assign('data', $var);
+        $this->display();
+    }
+
+    public function mine()
+    {
+        $this->isLogin();
         $m = M('tp_overtime');
         if ($_SESSION['user']) {
-            $where = array('userid' => $_SESSION['id']);
+            $where = array('user' => $_SESSION['user']);
             $where['type'] = '1';
             $jiab = $m->where($where)->order('riqi desc')->limit(10)->select();
             $jiabNum = $m->where($where)->count();
@@ -29,12 +43,24 @@ class OvertimeController extends WebInfoController
 
             $riqi = date("Y-m-d", time());
             $this->assign('riqi', $riqi);
+
             $begin = mktime(19, 00);//mktime(hour,minute,second,month,day,year)
             $begin = date('H:i', $begin);
             $this->assign('begin', $begin);
+
+
+            $tbegin = mktime(9, 00);//mktime(hour,minute,second,month,day,year)
+            $tbegin = date('H:i', $tbegin);
+            $this->assign('tbegin', $tbegin);
+
             $end = mktime(21, 00);
             $end = date('H:i', $end);
             $this->assign('end', $end);
+
+            $tend = mktime(18, 00);
+            $tend = date('H:i', $tend);
+            $this->assign('tend', $tend);
+
             $shif = array(
                 array('key' => 0, 'value' => '否'),
                 array('key' => 1, 'value' => '是'),
@@ -48,9 +74,6 @@ class OvertimeController extends WebInfoController
             $this->assign('data', C(QA_TESTER));
         }
 
-
-
-
         $this->display();
     }
 
@@ -58,8 +81,21 @@ class OvertimeController extends WebInfoController
     {
         $type = I('type');
         $this->assign('type', $type);
+        $user = I('user', $_SESSION['user']);
+        $this->assign('user', $user);
+        $where = array('user' => $user, 'type' => I('type'));
+        $data = M('tp_overtime')->where($where)->order('riqi desc')->select();
+        $this->assign('data', $data);
 
-        $where = array('userid' => $_SESSION['id'], 'type' => I('type'));
+        $this->display();
+    }
+
+    public function detailed()
+    {
+        $user = I('user');
+        $this->assign('user', $user);
+        $where = array('user' => $user);
+        $where['riqi'] = array('gt', '2018-4-10');
         $data = M('tp_overtime')->where($where)->order('riqi desc')->select();
         $this->assign('data', $data);
 
@@ -76,8 +112,8 @@ class OvertimeController extends WebInfoController
             $this->error('原因不能为空');
         } else {
             $m = D('tp_overtime');
-            $_POST['adder'] = $_SESSION['account'];
-            $_POST['moder'] = $_SESSION['account'];
+            $_POST['adder'] = $_SESSION['user'];
+            $_POST['moder'] = $_SESSION['user'];
             $_POST['ctime'] = time();
             if (!$m->create()) {
                 $this->error($m->getError());

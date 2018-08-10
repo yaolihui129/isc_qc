@@ -9,9 +9,11 @@ return array(
     ),
     'DEFAULT_THEME' => 'Amaze',
     'PRODUCT' => 'Jira',
-    'JIRAPI' => 'https://xiuliguanggao.com/index.php',
+//    'JIRAPI' => 'https://xiuliguanggao.com/index.php',
+    'JIRAPI' => 'http://10.2.3.87/index.php',
     'JIRAURL' => 'http://jira.zhidaohulian.com',
     'QA_TESTER' => array('ylh', 'fj', 'mhh', 'wcz', 'lixiaomei'),
+    'KH_QUARTER' => '2018Q3-Q4',//考核周期
     'DB_HOST' => '127.0.0.1',
     'DB_NAME' => 'eolinker',
     'DB_USER' => 'root',

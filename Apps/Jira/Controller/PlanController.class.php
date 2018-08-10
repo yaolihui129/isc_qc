@@ -7,24 +7,29 @@ class PlanController extends WebInfoController
     {
         $_SESSION['type']['plan'] = I('type');
         if ($_SESSION['type']['plan'] == 'done') {
-            $where['RESOLUTIONDATE'] = array('exp', 'is not null');
+            $where['issuestatus'] = array('in', '3,10002,10011');
         } else {
-            $where['RESOLUTIONDATE'] = array('exp', 'is null');
+            $where['issuestatus'] = array('not in', '3,10002,10011');
         }
 
         if (I('project')) {
             $_SESSION['project'] = I('project');
+            $pro = M('project')->find($_SESSION['project']);
+            $_SESSION['pkey'] = $pro['pkey'];
+            $_SESSION['pname'] = $pro['pname'];
         }
 
         $where['PROJECT'] = intval($_SESSION['project']);
-        $where['issuetype'] = '10102';
+//        $pro = M('project')->find($_SESSION['project']);
+//        $_SESSION['pkey']=$pro['pkey'];
 
+
+        $where['issuetype'] = '10102';
         $search = trim(I('search'));
         $_SESSION['search']['index'] = $search;
         $this->assign('search', $search);
-
         $where['SUMMARY|issuenum'] = array('like', '%' . $search . '%');
-        $_SESSION['map']['plan'] = $where;
+
         $url = C(JIRAPI) . "/Jirapi/issue";
         $data = httpJsonPost($url, json_encode($where));
         $data = json_decode(trim($data, "\xEF\xBB\xBF"), true);

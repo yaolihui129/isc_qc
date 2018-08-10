@@ -7,7 +7,7 @@ class RunstepController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_testrunstep',
+            'table' => 'AO_69E499_TESTRUNSTEP',
             'where' => array('TEST_RUN_ID' => $_GET['run']),
             'map' => '',
             'order' => '',

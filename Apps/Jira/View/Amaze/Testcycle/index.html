@@ -1,10 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<layout name="layout"/>
+<div class="admin-content container" style="min-height: 500px">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            测试计划：<{$Think.session.project|getName='project',###,'pkey'}>-<{$plan.issuenum}>：<{$plan.summary}>
+            <div class="btn-group pull-right">
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Plan/index/project/<{$Think.session.project}>/type/<{$_SESSION['type']['plan']}>"
+                   class=" btn btn-warning btn-xs ">返回</a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-3">经办人: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$plan.assignee|getJiraName=###}></div>
+                    <div class="col-md-3">状态: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$plan.issuestatus|getIssueStatus=###}>
+                    </div>
+                    <div class="col-md-3">
+                        <form name='sendmail' action='mailto:<{$str[0]}>'>
+                            <input name='cc' type='hidden' value='<{$str[1]}>'>
+                            <input name='subject' type='hidden' value='<{$str[2]}>'>
+                            <input name='body' type='hidden' value='<{$str[3]}>'>
+                            <input name="faxin" type="submit" class="btn btn-warning pull-right" value="提测打回">
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-danger pull-right">延期预警</button>
+                    </div>
+                </div>
+            </div>
 
-</body>
-</html>
+
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation" class="active"><a
+                        href="__URL__/index/tp/<{$Think.session.testPlan.id}>">周期&范围</a></li>
+                <li role="presentation"><a href="__URL__/tcase/tp/<{$Think.session.testPlan.id}>">关联用例</a></li>
+                <li role="presentation"><a href="__URL__/bug/tp/<{$Think.session.testPlan.id}>">本期缺陷</a></li>
+                <li role="presentation"><a href="__URL__/yiliu/tp/<{$Think.session.testPlan.id}>">遗留BUG</a></li>
+            </ul>
+
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-7">测试周期</div>
+                        <div class="col-md-1">状态</div>
+                        <div class="col-md-2">环境</div>
+                        <div class="col-md-2">版本</div>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <volist name='data' id='st' empty="没有数据">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <a href="__APP__/<{$Think.config.PRODUCT}>/Testrun/index/cyc/<{$st.id}>">
+                                        <{$st.name}>
+                                    </a>
+                                    <span class="badge pull-right">
+                                        <{$st.planned_start_time|substr=###,0,10}>--><{$st.planned_end_time|substr=###,0,10}>
+                                    </span>
+                                </div>
+                                <div class="col-md-1">
+                                    <switch name="st.status">
+                                        <case value="Draft">未开始</case>
+                                        <case value="Completed">完成</case>
+                                        <case value="Active">进行中</case>
+                                    </switch>
+                                </div>
+                                <div class="col-md-2"><{$st.environment}></div>
+                                <div class="col-md-2"><{$st.build}></div>
+                            </div>
+
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">覆盖功能点（测试范围） <span class="badge"><{$c}></span></div>
+                <ul class="list-group">
+                    <volist name='func' id='st' empty="没有数据">
+                        <li class="list-group-item">
+                            <small>
+                                <{$Think.session.pkey}>-<{$st.issuenum}>
+                                <{$st.summary}>
+                            </small>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

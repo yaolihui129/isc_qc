@@ -7,7 +7,7 @@ class TeststepController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_teststep',
+            'table' => 'AO_69E499_TESTSTEP',
             'where' => array('TC_ID' => $_GET['tc']),
             'map' => '',
             'order' => '',

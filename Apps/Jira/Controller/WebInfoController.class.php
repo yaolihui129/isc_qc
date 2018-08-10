@@ -24,7 +24,7 @@ class WebInfoController extends Controller
 
     function projectDict()
     {
-        $data = M('project')->select();
+        $data = M('project')->cache('cache_project')->select();
         $project = array();
         foreach ($data as $k => $v) {
 
@@ -63,8 +63,8 @@ class WebInfoController extends Controller
     {
         $m = D(I('table'));
         if (IS_GET) {
-            $_GET['adder'] = $_SESSION['account'];
-            $_GET['moder'] = $_SESSION['account'];
+            $_GET['adder'] = $_SESSION['user'];
+            $_GET['moder'] = $_SESSION['user'];
             $_GET['ctime'] = time();
             if (!$m->create($_GET)) {
                 $this->error($m->getError());
@@ -79,8 +79,8 @@ class WebInfoController extends Controller
                 $this->error("失败");
             }
         } else {
-            $_POST['adder'] = $_SESSION['account'];
-            $_POST['moder'] = $_SESSION['account'];
+            $_POST['adder'] = $_SESSION['user'];
+            $_POST['moder'] = $_SESSION['user'];
             $_POST['ctime'] = time();
             if (!$m->create()) {
                 $this->error($m->getError());
@@ -101,7 +101,7 @@ class WebInfoController extends Controller
     public function update()
     {
         if (IS_GET) {
-            $_GET['moder'] = $_SESSION['account'];
+            $_GET['moder'] = $_SESSION['user'];
             if (D(I('table'))->save($_GET)) {
                 if ($_GET['url']) {
                     $this->success("成功", U($_GET['url']));
@@ -112,7 +112,7 @@ class WebInfoController extends Controller
                 $this->error("失败！");
             }
         } else {
-            $_POST['moder'] = $_SESSION['account'];
+            $_POST['moder'] = $_SESSION['user'];
             if (D(I('table'))->save($_POST)) {
                 if ($_POST['url']) {
                     $this->success("成功", U($_POST['url']));
@@ -129,7 +129,7 @@ class WebInfoController extends Controller
     public function del()
     {
         $_POST[id] = I('id');
-        $_POST['moder'] = $_SESSION['account'];
+        $_POST['moder'] = $_SESSION['user'];
         $_POST['deleted'] = 1;
         if (D(I('table'))->save($_POST)) {
             $this->success("删除成功！");
@@ -138,20 +138,33 @@ class WebInfoController extends Controller
         }
     }
 
-    function jira_api()
+    //物理删除
+    public function realdel()
     {
-        $username = I('username', 'ylh');
-        $password = I('password', '123456');
-        $requirementIssueKey = "CX";
-//        $url=C(JIRAURL).'/rest/api/latest/issue/'.$requirementIssueKey.'/subtask';
-        $url = C(JIRAURL) . '/rest/api/latest/project/' . $requirementIssueKey . '/issue';
-        $json = httpAuthGet($url, $username, $password);
-        $data = json_decode($json, true);
-        $this->assign('data', $data);
-        print_r($url);
-        print_r($json);
+        $count = D(I('table'))->delete(I('id'));
+        if ($count > 0) {
+            $this->success('成功');
+        } else {
+            $this->error('失败');
+        }
     }
 
+    function projectList($where = array())
+    {
+        $arr = array('eolinker示例', '微信', '测试管理', 'Jira');
+        $where['projectName'] = array('not in', $arr);
+        $data = M('eo_project')->where($where)->select();
+        return $data;
+    }
 
+    function projectID()
+    {
+        $project = $this->projectList();
+        $pro = '';
+        foreach ($project as $p) {
+            $pro[] = $p['projectid'];
+        }
+        return $pro;
+    }
 
 }

@@ -11,7 +11,7 @@ class TestcasedetailsController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_testcasedetails',
+            'table' => 'AO_69E499_TESTCASEDETAILS',
             'where' => array('TC_ID' => $_GET['tc']),
             'map' => '',
             'order' => '',

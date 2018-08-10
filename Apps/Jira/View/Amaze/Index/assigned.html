@@ -57,15 +57,24 @@
             <li role="presentation">
                 <a href="__URL__/index/project/<{$Think.session.project}>">进行中</a>
             </li>
-            <li role="presentation" class="active">
-                <a href="__URL__/assigned/type/assigned/project/<{$Think.session.project}>">待分派</a>
-            </li>
+            <if condition="$_SESSION['project'] eq 10006 ">
+                <li role="presentation">
+                    <a href="__URL__/pending">待分派</a>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="__URL__/started/type/assigned/project/<{$Think.session.project}>">未开始</a>
+                </li>
+                <else/>
+                <li role="presentation" class="active">
+                    <a href="__URL__/assigned/type/assigned/project/<{$Think.session.project}>">待处理</a>
+                </li>
+            </if>
         </ul>
 
         <volist name='data' id='da' empty="没有数据">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <{$Think.session.project|getName='project',###,'pkey'}>-<{$da.issuenum}>:
+                    <{$Think.session.pkey}>-<{$da.issuenum}>:
                     【<{$da.issuetype|getName='issuetype',###,'pname'}>】<{$da.summary}>
                     <span class="badge pull-right">
                             <{$da.issuestatus|getName='issuestatus',###,'pname'}>

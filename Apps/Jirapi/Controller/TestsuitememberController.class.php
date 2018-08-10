@@ -7,7 +7,7 @@ class TestsuitememberController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_testsuitemember',
+            'table' => 'AO_69E499_TESTSUITEMEMBER',
             'where' => array('SEQ_BALANCER' => $_GET['seq']),
             'map' => '',
             'order' => 'SEQUENCE',

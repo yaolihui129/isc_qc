@@ -10,8 +10,8 @@ class IssueController extends BasicController
             'table' => 'jiraissue',
             'where' => $_GET,
             'map' => '',
-            'order' => $_GET['order'],
-            'field' => 'id,issuenum,PROJECT,REPORTER,ASSIGNEE,SUMMARY,issuetype,issuestatus,RESOLUTIONDATE,DESCRIPTION',
+            'order' => I('order'),
+            'field' => 'id,issuenum,PROJECT,REPORTER,ASSIGNEE,SUMMARY,PRIORITY,issuetype,issuestatus,RESOLUTIONDATE,DESCRIPTION,CREATED,UPDATED',
 
         );
         return $data;
@@ -66,16 +66,6 @@ class IssueController extends BasicController
         $this->ajaxReturn($data);
     }
 
-    function post()
-    {
-        $where = getJsonToArray();
-        $data = M('jiraissue')->where($where)
-            ->field('id,issuenum,PROJECT,REPORTER,ASSIGNEE,SUMMARY,issuetype,issuestatus,RESOLUTIONDATE,DESCRIPTION')
-            ->select();
-        $this->ajaxReturn($data);
-    }
-
-
     public function issuenum()
     {
         switch ($this->_method) {
@@ -86,7 +76,7 @@ class IssueController extends BasicController
                 $this->put();
                 break;
             case 'post': // post请求处理代码
-                $this->post_fun();
+                $this->post();
                 break;
         }
     }

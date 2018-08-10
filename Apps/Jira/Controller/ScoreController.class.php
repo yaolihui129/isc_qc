@@ -3,10 +3,34 @@
 namespace Jira\Controller;
 class ScoreController extends WebInfoController
 {
-    //我的积分
     public function index()
     {
-        $user = $_SESSION['account'];
+        $saiJi = array();
+        $where = array('deleted' => '0');
+        $data = M('tp_my_score')->where($where)->order('ctime desc')->select();
+        foreach ($data as $da) {
+            if (!in_array($da['quarter'], $saiJi)) {
+                $saiJi[] = $da['quarter'];
+            }
+        }
+        $this->assign("saiJi", $saiJi);
+
+        $quarter = I('quarter', $saiJi[0]);
+        $this->assign("quarter", $quarter);
+
+        $where = array('quarter' => $quarter, 'deleted' => '0');
+        $user = array_diff(C(QA_TESTER), array('ylh'));
+
+        $where['user'] = array('in', $user);
+        $data = M('tp_score_list')->where($where)->order('score desc')->select();
+        $this->assign("data", $data);
+
+        $this->display();
+    }
+
+    public function mine()
+    {
+        $user = $_SESSION['user'];
         $this->assign("myScore", sumScore($user, C(KH_QUARTER)));
 
         $where = array('user' => $user, 'quarter' => C(KH_QUARTER), 'deleted' => '0');
@@ -43,11 +67,14 @@ class ScoreController extends WebInfoController
     //更多
     public function gengduo()
     {
-        $where = array('user' => $_SESSION['account'], 'quarter' => C(KH_QUARTER), 'deleted' => '0');
+        $user = I('user');
+        $quarter = I('quarter', C(KH_QUARTER));
+        $this->assign("user", $user);
+        $where = array('user' => $user, 'quarter' => $quarter, 'deleted' => '0');
         $data = M('tp_my_score')->where($where)->order('ctime desc')->select();
         $this->assign("data", $data);
 
-        $score = sumScore($_SESSION['account'], C(KH_QUARTER));
+        $score = sumScore($user, $quarter);
         $this->assign("score", $score);
 
         $this->display();

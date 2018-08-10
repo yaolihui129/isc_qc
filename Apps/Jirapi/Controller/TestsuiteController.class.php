@@ -7,7 +7,7 @@ class TestsuiteController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_testsuite',
+            'table' => 'AO_69E499_TESTSUITE',
             'where' => array('PROJECT_ID' => $_GET['project']),
             'map' => '',
             'order' => '',

@@ -7,7 +7,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">
-                            测试计划：<{$Think.session.project|getName='project',###,'pname'}>
+                            测试计划：<{$Think.session.pname}>
                         </a>
                         <ul class="dropdown-menu">
                             <volist name='project' id='pro'>
@@ -54,14 +54,13 @@
             <th class="table-title" bgcolor="#ccc">测试计划</th>
             <th class="table-type" bgcolor="#ccc">报告人</th>
             <th class="table-type" bgcolor="#ccc">经办人</th>
-            <th class="table-date" bgcolor="#ccc">上线时间</th>
             <th class="table-type" bgcolor="#ccc">测试报告</th>
         </tr>
         </thead>
         <tbody>
         <volist name='data' id='da' empty="没有数据">
             <tr>
-                <td><{$Think.session.project|getName='project',###,'pkey'}>-<{$da.issuenum}></td>
+                <td><{$Think.session.pkey}>-<{$da.issuenum}></td>
                 <td>
                     <a href="__APP__/<{$Think.config.PRODUCT}>/Testcycle/index/tp/<{$da.id}>"><{$da.summary}></a>
                     <span class="pull-right">
@@ -70,7 +69,6 @@
                 </td>
                 <td><{$da.reporter|getJiraName=###}></td>
                 <td><{$da.assignee|getJiraName=###}></td>
-                <td><{$da.resolutiondate}></td>
                 <td>
                     <a href="__APP__/<{$Think.config.PRODUCT}>/Report/index">测试环境</a>
                     <span class="pull-right"><a

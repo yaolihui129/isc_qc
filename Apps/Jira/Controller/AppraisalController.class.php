@@ -80,7 +80,8 @@ class AppraisalController extends WebInfoController
             $this->assign("dissent", $dissent);
             $this->display();
         } else {
-            dump('你没有权限访问此功能');
+            $this->error('你没有权限访问此功能!');
+//            dump('你没有权限访问此功能');
         }
 
     }

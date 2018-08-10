@@ -11,7 +11,7 @@ class TestplanmemberController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_testplanmember',
+            'table' => 'AO_69E499_TESTPLANMEMBER',
             'where' => array('TP_ID' => $_GET['tp']),
             'map' => '',
             'order' => '',

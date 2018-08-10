@@ -5,16 +5,18 @@ class RiskController extends WebInfoController
 {
     public function index()
     {
+        $project = I('project', '10006');
+        $where = array('project' => $project, 'deleted' => '0');
+        $data = M("tp_risk")->where($where)->order('ctime desc')->select();
+        $this->assign("data", $data);
 
-        $pros = $this->project('', 20);
-        $this->assign('pros', $pros);
+        $this->display();
 
-        $_SESSION['proid'] = I('proid');
-        $m = M("project");
+    }
 
-        $arr = $m->find($_SESSION['proid']);
-        $this->assign("arr", $arr);
-
+    public function risk()
+    {
+        $_SESSION['project'] = I('project', '10006');
         $m = D("tp_risk");
         $where = array("proid" => $_SESSION['proid']);
         $risks = $m->where($where)->select();
@@ -26,9 +28,9 @@ class RiskController extends WebInfoController
         $this->assign("level", formselect("C", "level", "risklevel"));
         $this->assign("tamethod", PublicController::editor("amethod", "暂无方案"));
 
-
         $this->display();
     }
+
 
     public function mod()
     {

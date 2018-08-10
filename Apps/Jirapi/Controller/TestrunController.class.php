@@ -7,14 +7,21 @@ class TestrunController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_testrun',
+            'table' => 'AO_69E499_TESTRUN',
             'where' => array('TEST_CYCLE_ID' => $_GET['cycle']),
             'map' => '',
             'order' => '',
             'field' => '',
-
         );
         return $data;
+    }
+
+    function post()
+    {
+        $var = $this->init();
+        $where = getJsonToArray();
+        $data = M($var['table'])->where($where)->select();
+        $this->ajaxReturn($data);
     }
 
 }

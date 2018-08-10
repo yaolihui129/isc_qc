@@ -27,15 +27,15 @@ class BugController extends WebInfoController {
     }
     
     function noregress(){
-        $where['status']="resolved";
+        $m = M("bug");
+        //更改为未关闭的BUG
+        $where['product'] = '6';
+        $where['status'] = array('not in', 'closed');
         $where['deleted']='0';
-        $datum=date("Y-m-d",time()-24*3600);
-        $datum=strtotime($datum);
-        $datum=date("Y-m-d H:i",$datum+17.5*3600);
-        $where['resolvedDate']  = array('lt',$datum);
-        $where['assignedTo']=array('in',C(QA_TESTER));//只看这些人员
-        $data=M("bug")->where($where)->order('resolvedDate')->select();
+        $data = $m->where($where)->order('branch,module')->select();
         $this->assign('data',$data);
+        $count = $m->where($where)->count();
+        $this->assign('count', $count);
         
         $this->display();
     }

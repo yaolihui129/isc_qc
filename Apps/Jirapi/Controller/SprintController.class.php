@@ -7,7 +7,7 @@ class SprintController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_60db71_sprint',
+            'table' => 'AO_60DB71_SPRINT',
             'where' => array('RAPID_VIEW_ID' => $_GET['RAPID_VIEW_ID']),
             'map' => '',
             'order' => '',

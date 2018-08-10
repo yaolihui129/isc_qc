@@ -7,7 +7,7 @@ class TestcycleController extends BasicController
     {
         //初始化信息
         $data = array(
-            'table' => 'ao_69e499_testcycle',
+            'table' => 'AO_69E499_TESTCYCLE',
             'where' => array('TP_ID' => $_GET['tp']),
             'map' => '',
             'order' => '',

@@ -5,7 +5,7 @@ class UserController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_2d3bea_user_index',
+            'table' => 'AO_2D3BEA_USER_INDEX',
             'where' => array('USER_KEY' => $_GET['USER_KEY']),
             'map' => '',
             'order' => '',

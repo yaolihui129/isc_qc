@@ -7,7 +7,7 @@ class TestsuitelabelController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_testsuitelabel',
+            'table' => 'AO_69E499_TESTSUITELABEL',
             'where' => array('TEST_SUITE_ID' => $_GET['suite']),
             'map' => '',
             'order' => '',

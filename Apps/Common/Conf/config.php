@@ -5,7 +5,7 @@ return array(
     'SESSION_AUTO_START'    => true,//开启SESSION
     'URL_MODEL' => '2',//URL模式
     'MODULE_ALLOW_LIST' => array('Report', 'Record', 'Api', 'Xiuli', 'Xinda', 'Device', 'Linker', 'Jira', 'Jirapi'),//设置允许模块
-    'DEFAULT_MODULE'        => 'Report',//设置默认模块设置
+    'DEFAULT_MODULE' => 'Jira',//设置默认模块设置
     'MODULE_DENY_LIST'      => array('Common','Runtime'), // 禁止访问的模块列表
     'URL_CASE_INSENSITIVE'  =>true, //不区分大小写
     'ONLINE'                =>0,  //是否为线上环境，0：测试环境；1：生产环境

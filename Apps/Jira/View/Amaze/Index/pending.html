@@ -1,0 +1,63 @@
+<layout name="layout"/>
+<div class="admin-content container" style="min-height: 500px">
+    <ul class="nav nav-pills" role="tablist">
+        <li role="presentation">
+            <a href="__URL__/index/project/<{$Think.session.project}>">进行中</a>
+        </li>
+        <if condition="$_SESSION['project'] eq 10006 ">
+            <li role="presentation" class="active">
+                <a href="__URL__/pending">待分派 &nbsp;<span class="badge"><{$data|sizeof=###}></span></a>
+            </li>
+            <li role="presentation">
+                <a href="__URL__/started/type/assigned/project/<{$Think.session.project}>">未开始</a>
+            </li>
+            <else/>
+            <li role="presentation">
+                <a href="__URL__/assigned/type/assigned/project/<{$Think.session.project}>">待处理</a>
+            </li>
+        </if>
+    </ul>
+    <div class="panel panel-default" style="min-height: 350px">
+
+
+        <empty name="data">
+            <br><br>
+            <img src="__IMG__/wao.jpg" class="img-responsive center-block" alt="error">
+            <h1 class="text-center">暂时没有可分派的任务</h1>
+            <else/>
+            <volist name='data' id='da' empty="没有数据">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <{$da.pkey}>:
+                        【<{$da.issuetype|getName='issuetype',###,'pname'}>】<{$da.pname}>
+                        【
+                        <empty name="da.draw">
+                            <a href="__URL__/draw/project/<{$da.id}>">抽签</a>
+                            <else/>
+                            <{$da.draw|getJiraName=###}>
+                            <if condition="$da.draw eq $_SESSION['user']">
+                                <a href="__URL__/renounce/project/<{$da.id}>">放弃</a>
+                            </if>
+                        </empty>
+                        】
+                        <switch name="Think.session.user">
+                            <case value="ylh"><a href="__URL__/chehui/project/<{$da.id}>">撤回</a></case>
+                        </switch>
+
+                        <span class="badge pull-right">
+                        <{$da.issuestatus|getName='issuestatus',###,'pname'}>
+                    </span>
+                    </div>
+                    <div class="panel-body">
+                        <notempty name="da.description">
+                            <div class="well well-sm"><{$da.description}></div>
+                        </notempty>
+                        <{$da.id|drawInfo=###}>
+                    </div>
+                </div>
+            </volist>
+        </empty>
+
+
+    </div>
+</div>

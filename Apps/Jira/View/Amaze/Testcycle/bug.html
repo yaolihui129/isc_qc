@@ -1,0 +1,56 @@
+<layout name="layout"/>
+<div class="admin-content container" style="min-height: 500px">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            测试计划：<{$Think.session.project|getName='project',###,'pkey'}>-<{$plan.issuenum}>：<{$plan.summary}>
+            <div class="btn-group pull-right">
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Plan/index/project/<{$Think.session.project}>/type/<{$_SESSION['type']['plan']}>"
+                   class=" btn btn-warning btn-xs ">返回</a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-4">类型: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$plan.issuetype|getIssueType=###}></div>
+                    <div class="col-md-4">状态: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$plan.issuestatus|getIssueStatus=###}>
+                    </div>
+                    <div class="col-md-4">经办人: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$plan.assignee|getJiraName=###}></div>
+                </div>
+            </div>
+
+
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation"><a href="__URL__/index/tp/<{$Think.session.testPlan.id}>">周期&范围</a></li>
+                <li role="presentation"><a href="__URL__/tcase/tp/<{$Think.session.testPlan.id}>">关联用例</a></li>
+                <li role="presentation" class="active"><a href="__URL__/bug/tp/<{$Think.session.testPlan.id}>">本期缺陷</a>
+                </li>
+                <li role="presentation"><a href="__URL__/yiliu/tp/<{$Think.session.testPlan.id}>">遗留BUG</a></li>
+            </ul>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-10">
+                            测试缺陷<span class="badge"><{$bug|sizeof=###}></span>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="list-group">
+                    <volist name='bug' id='st' empty="没有数据">
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <small>
+                                        【<{$st.key}>】<{$st.summary}>
+                                    </small>
+                                </div>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -47,6 +47,11 @@
                     <span class="glyphicon glyphicon-link"> eoLinke</span>
                 </a>
             </li>
+            <li>
+                <a href="__APP__/Device/Index/index" target=_blank>
+                    <span class="glyphicon glyphicon-link"> 图书&设备</span>
+                </a>
+            </li>
             <empty name="_SESSION['user']">
                 <li>
                     <a href="__APP__/<{$Think.config.PRODUCT}>/Login" target=_blank>
@@ -89,6 +94,16 @@
                 </a>
             </li>
             <li>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Risk/index/project/<{$Think.session.project}>">
+                    <span class="glyphicon glyphicon-glass"> 风险预警</span>
+                </a>
+            </li>
+            <li>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Func/index/project/<{$Think.session.project}>">
+                    <span class="glyphicon glyphicon-globe"> 功能地图</span>
+                </a>
+            </li>
+            <li>
                 <a href="__APP__/<{$Think.config.PRODUCT}>/Case/index/project/<{$Think.session.project}>">
                     <span class="glyphicon glyphicon-globe"> 测试用例</span>
                 </a>
@@ -103,25 +118,28 @@
                     <span class="glyphicon glyphicon-compressed"> 待测接口</span>
                 </a>
             </li>
+            <in name="_SESSION['user']" value="ylh,cf">
+                <li>
+                    <a href="__APP__/<{$Think.config.PRODUCT}>/Appraisal"><span
+                            class="am-icon-pencil-square-o"> 绩效考核</span></a>
+                </li>
+            </in>
             <li>
                 <a href="__APP__/<{$Think.config.PRODUCT}>/Score">
                     <span class="glyphicon glyphicon-credit-card"> 考核排行</span>
                 </a>
             </li>
             <li>
-                <a href="__APP__/<{$Think.config.PRODUCT}>/Bug/unconfirmed">
-                    <span class="glyphicon glyphicon-bell"> 待处理BUG</span>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Bug">
+                    <span class="glyphicon glyphicon-credit-card"> 待处理Bug</span>
                 </a>
             </li>
             <li>
-                <a href="__APP__/<{$Think.config.PRODUCT}>/Overtime">
-                    <span class="glyphicon glyphicon-time"> 加班调休</span>
-                </a>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Overtime"><span class="glyphicon glyphicon-time"> 加班调休</span></a>
             </li>
             <li>
-                <a href="__APP__/<{$Think.config.PRODUCT}>/Standard/">
-                    <span class="am-icon-file"> &nbsp; &nbsp;测试规范</span>
-                </a>
+                <a href="__APP__/<{$Think.config.PRODUCT}>/Standard/"><span
+                        class="am-icon-file"> &nbsp; &nbsp;测试规范</span></a>
             </li>
         </ul>
         <div class="am-panel am-panel-default admin-sidebar-panel">

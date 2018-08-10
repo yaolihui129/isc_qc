@@ -7,7 +7,7 @@ class TestrunhistoryController extends BasicController
     function init()
     {
         $data = array(
-            'table' => 'ao_69e499_testrunhistory',
+            'table' => 'AO_69E499_TESTRUNHISTORY',
             'where' => $_GET,
             'map' => '',
             'order' => '',

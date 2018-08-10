@@ -50,7 +50,8 @@ class BasicController extends RestController
     function post()
     {
         $var = $this->init();
-        $data = array('暂不提供该功能');
+        $where = getJsonToArray();
+        $data = M($var['table'])->where($where)->field($var['field'])->cache(true, 60)->select();
         $this->ajaxReturn($data);
     }
 
