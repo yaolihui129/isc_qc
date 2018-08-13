@@ -2,9 +2,12 @@
 return array(
 	//'配置项'=>'配置值'
     'TMPL_PARSE_STRING'=>array(
-        '__IMAGES__'=>__ROOT__.'/Public/images/Tuocai',
-        '__IMG__'   =>__ROOT__.'/Public/images',
-        '__UPLOAD__'=>__ROOT__.'/Upload'
+        '__IMAGES__' => 'https://xiuliguanggao.com/Public/images/Tuocai',
+        '__CSS__' => 'https://xiuliguanggao.com/Public/css',
+        '__JS__' => 'https://xiuliguanggao.com/Public/js',
+        '__IMG__' => 'https://xiuliguanggao.com/Public/images',
+        '__UPLOAD__' => 'https://xiuliguanggao.com/Upload'
+
     ),
     'DEFAULT_THEME'     =>  'Amaze',                              //开启模板
     'PRODID'            =>   2,                                     //定义产品编号

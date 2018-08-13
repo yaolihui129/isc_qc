@@ -2,8 +2,8 @@
 return array(
     //'配置项'=>'配置值'
     'TMPL_PARSE_STRING' => array(
-        '__CSS__' => __ROOT__ . '/Public/css',
-        '__JS__' => __ROOT__ . '/Public/js',
+        '__CSS__' => 'https://xiuliguanggao.com/Public/css',
+        '__JS__' => 'https://xiuliguanggao.com/Public/js',
     ),
     'TMPL_ACTION_ERROR' => 'Public:error',
     'TMPL_ACTION_SUCCESS' => 'Public:success',

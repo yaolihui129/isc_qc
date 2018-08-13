@@ -208,13 +208,14 @@ class TestcycleController extends WebInfoController
         //5.提测打回邮件
         $mail = $_SESSION['testPlan']['assignee'] . '@zhidaoauto.com';
         $cc = '';
-        $subject = $_SESSION['testPlan']['summary'] . '，测试准入验收未通过，提测版本打回，有项目可能延期的风险';
+        $subject = $_SESSION['testPlan']['summary'] . '，未达到最基本的上线标准，项目已经延期';
         $body = $_SESSION['testPlan']['summary'] . ',<br>
-                在按照给出的冒烟测试标准进行测试准入验收时，发现如下冒烟用例未通过<br>'
-            . '（附上未通过的冒烟用例列表）<br>'
-            . '造成XX等功能无法正常进行测试，从而也无法按照计划进入测试环节，会有项目可能延期的风险<br>
+                原计划XX月XX日上线，截止到XX时间<br>'
+            . '还有XX必测点没有时间验证<br>（附上必测点清单）<br>'
+            . 'Jira中还有BUG没有关闭<br>（ 附上BUG列表）
                 <br>
-                请相关责任人务必回复邮件说明原因，并明确给出可以重新提测的时间节点。<br>';
+                完全达不到上线的最基本要求，项目已经延期<br><br>
+                请产品经理或其他负责人紧急召开项目会议，商议下一步的解决方案';
         $str = array($mail, arrayToStr($cc), $subject, $body);
         $this->assign('str', $str);
 

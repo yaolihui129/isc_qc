@@ -5,6 +5,17 @@ class OvertimeController extends CommonController
 {
     public function index()
     {
+        $where['role'] = 'qa';
+        $where['deleted'] = '0';
+        $where['account'] = array('in', C(QA_TESTER));
+        $data = M('user')->where($where)->select();
+        $this->assign('data', $data);
+
+        $this->display();
+    }
+
+    public function mine()
+    {
         $m=M('tp_overtime');
         $where = array('userid' => $_SESSION['id']);
         $where['type']='1';
@@ -43,8 +54,6 @@ class OvertimeController extends CommonController
         $taxi = $this->select($shif, 'taxi', 0);
         $this->assign("taxi", $taxi);
 
-
-
         $this->display();
     }
 
@@ -55,6 +64,18 @@ class OvertimeController extends CommonController
 
         $where = array('userid' => $_SESSION['id'],'type'=>I('type'));
         $data= M('tp_overtime')->where($where)->order('riqi desc')->select();
+        $this->assign('data', $data);
+
+        $this->display();
+    }
+
+    public function detailed()
+    {
+        $user = I('user');
+        $this->assign('user', $user);
+        $where = array('user' => $user);
+        $where['riqi'] = array('gt', '2018-4-10');
+        $data = M('tp_overtime')->where($where)->order('riqi desc')->select();
         $this->assign('data', $data);
 
         $this->display();

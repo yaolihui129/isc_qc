@@ -2,11 +2,10 @@
 return array(
     //'配置项'=>'配置值'
     'TMPL_PARSE_STRING' => array(
-        '__CSS__'       => __ROOT__ . '/Public/css',
-        '__JS__'        => __ROOT__ . '/Public/js',
-        '__IMG__'       => __ROOT__ . '/Public/images',
-        '__IMAGES__'    => __ROOT__ . '/Public/images/Device',
-        '__UPLOAD__'    => __ROOT__ . '/Upload',
+        '__CSS__' => 'https://xiuliguanggao.com/Public/css',
+        '__JS__' => 'https://xiuliguanggao.com/Public/js',
+        '__IMG__' => 'https://xiuliguanggao.com/Public/images',
+        '__UPLOAD__' => 'https://xiuliguanggao.com/Upload',
     ),
     //默认错误跳转对应的模板文件
     'TMPL_ACTION_ERROR' => 'Public:error',

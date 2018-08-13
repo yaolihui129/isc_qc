@@ -2,11 +2,11 @@
 return array(
 	//'配置项'=>'配置值'
     'TMPL_PARSE_STRING'=>array(
-        '__CSS__'=>__ROOT__.'/Public/css',
-        '__JS__'=>__ROOT__.'/Public/js',
-        '__IMAGES__'=>__ROOT__.'/Public/images/Xinda',
-        '__IMG__'=>__ROOT__.'/Public/images',
-        '__UPLOAD__'=>__ROOT__.'/Upload'
+        '__IMAGES__' => 'https://xiuliguanggao.com/Public/images/Xinda',
+        '__CSS__' => 'https://xiuliguanggao.com/Public/css',
+        '__JS__' => 'https://xiuliguanggao.com/Public/js',
+        '__IMG__' => 'https://xiuliguanggao.com/Public/images',
+        '__UPLOAD__' => 'https://xiuliguanggao.com/Upload'
     ),
     'DEFAULT_THEME'     =>  'Amaze',//开启模板
     'PRODID'            =>  6,                                       //定义产品编号
